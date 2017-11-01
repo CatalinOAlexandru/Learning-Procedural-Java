@@ -14,7 +14,7 @@ public class alien
         explain(); // just some prints
         
         String n = name(); // get the name  
-         a1 = setName(a1, n); // and transform it into a1.name here
+        a1 = setName(a1, n); // and transform it into a1.name here
 
         int r = random(); // get a random number
         a1 = setHungerLevel(a1, r); // transfer the random number into a1.hungerlevel
@@ -83,7 +83,7 @@ public class alien
         String name = getName(a1);
         int hunger = getHungerLevel(a1);
         Print("On a scale of 1 to 10, " + name + "'s hunger level is " + hunger + "/10.");
-        Print("(1 means hungry and 10 means full)\n");
+        Print("(10 means very hungry and 1 means not at all)\n");
 
         return;
     } // END hungers
@@ -102,22 +102,22 @@ public class alien
         int hunger = getHungerLevel(a1);
         int anger = 0;
         
-        if(hunger <= 10 && hunger >=8)
+        if(hunger <= 3 && hunger >=1)
         {
         	Print("Also, " + name + " looks very happy! You can play together. [ANGER LEVEL 1]");
         	anger = anger +1;
         }
-        else if(hunger <= 7 && hunger >=6)
+        else if(hunger <= 5 && hunger >=4)
         {
         	Print(name + " looks very calm at the moment, he probably likes you! [ANGER LEVEL 2]");
         	anger = anger +2;
         }
-		else if(hunger <= 5 && hunger >=4)
+		else if(hunger <= 7 && hunger >=6)
         {
         	Print("I think " +name + " is tetchy. Please, be careful! [ANGER LEVEL 3]");
         	anger = anger +3;
         }
-        else if(hunger <= 3 && hunger >= 1)
+        else if(hunger <= 10 && hunger >= 8)
         {
 			Print(name + " looks very dangerous! BE CAREFUL OUT THERE! [ANGER LEVEL 4]");
         	anger = anger +4;
@@ -159,10 +159,10 @@ public class alien
 			{
 				Print("\nAlright! Here is some food for " + name + ".");
 				Print(name + " likes it!");
-				hunger = hunger + random;
+				hunger = hunger - random;
 
-				if(hunger > 10)
-					hunger = 10;
+				if(hunger < 1)
+					hunger = 1;
 				else
 					{}
 
