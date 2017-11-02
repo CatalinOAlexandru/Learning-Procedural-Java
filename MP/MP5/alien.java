@@ -16,15 +16,32 @@ public class alien
         String n = name(); // get the name  
         a1 = setName(a1, n); // and transform it into a1.name here
 
-        int r = random(); // get a random number
-        a1 = setHungerLevel(a1, r); // transfer the random number into a1.hungerlevel
-        hunger(a1); // a1.name and a1.hungerlevel will be used here
+        Print("On a scale of 1 to 10...");
+
+        int h = hunger(a1); // a1.name and a1.hungerlevel will be used here
+        a1 = setHungerLevel(a1, h); // transfer the random number into a1.hungerlevel
+        int t = thirst(a1);
+        a1 = setThirstLevel(a1, t);
+        int i = irritability(a1);
+        a1 = setIrritLevel(a1, i);
+
+        Print("(10 means very bad and 1 means not at all)\n");
 
         int a = anger(a1); // a1.name and a1.hungerlevel will be used here as well
-        Print("A lower anger level is better.\n");
+        Print("(A lower anger level is better.)\n");
         a1 = setAngerLevel(a1, a);
 
+        int r = rounds(a1);
+
+        for(int jj = 0; jj >= r; jj++)
+        {
+        Print("\nROUND NUMBER: " + (r+1) + "\n");
         feed(a1);
+        water(a1);
+        sing(a1);
+        a = anger(a1); // a1.name and a1.hungerlevel will be used here as well
+        a1 = setAngerLevel(a1, a);
+    	}
 
         System.exit(0);
 
@@ -32,8 +49,7 @@ public class alien
 
     public static void explain()
     {
-
-        Print("\nWelcome to TRAAAAAAIN YOOOUR alien...");
+        Print("\nWelcome to TRAAAAAAIN YOOOOOUR... alien...");
         Print("You will be asked to input a name for your new alien and after that the program will print something special regarding your alien.\n");
     	return;
     }  // END explain
@@ -45,48 +61,31 @@ public class alien
         return alienname;
     }  // END Name
 
-    public static AlienData setName(AlienData p1, String name1)
-    {
-    	p1.name = name1;
-    	return p1;
-    } // END setName
-
-    public static AlienData setHungerLevel(AlienData p2, int hunger1)
-    {
-    	p2.HungerLevel = hunger1;
-    	return p2;
-    }  // END setHungerLevel
-
-    public static AlienData setAngerLevel(AlienData p3, int anger1)
-    {
-    	p3.AngerLevel = anger1;
-    	return p3;
-    }  // END setAngerLevel
-
-    public static String getName(AlienData a1)
-    {
-    	return a1.name;
-    }  // END getName
-
-    public static int getHungerLevel(AlienData a1) // hunger is a random number
-    {
-    	return a1.HungerLevel;
-    } // END getHungerLevel
-
-    public static int getAngerLevel(AlienData a1) 
-    {
-    	return a1.AngerLevel;
-    } // END getAngerLevel
-
-    public static void hunger(AlienData a1)
+    public static int hunger(AlienData a1)
     {
         String name = getName(a1);
-        int hunger = getHungerLevel(a1);
-        Print("On a scale of 1 to 10, " + name + "'s hunger level is " + hunger + "/10.");
-        Print("(10 means very hungry and 1 means not at all)\n");
-
-        return;
+        int hunger = random();
+        Print(name + "'s hunger level is " + hunger + "/10.");
+   
+        return hunger;
     } // END hungers
+
+    public static int thirst(AlienData a1)
+    {
+    	String name = getName(a1);
+    	int thirst = random();
+    	Print(name + "'s thirst level is " + thirst + "/10.");
+
+    	return thirst;
+    }
+
+    public static int irritability(AlienData a1)
+    {
+		String name = getName(a1);
+    	int irrit = random();
+    	Print(name + "'s irritability level is " + irrit + "/10.");
+    	return irrit;
+    }
 
     public static int random()
     {
@@ -96,59 +95,71 @@ public class alien
        return random;
     } // END random
 
+    public static int rounds(AlienData a1)
+    {
+    	String name = getName(a1);
+    	int rounds;
+    	Print("Now it's time to try to take care of " + name + ".");
+    	
+   		while(true)
+   		{
+   			rounds = Integer.parseInt(InputString("How many rounds do you want to play? (1-3)"));
+   			if(rounds >= 1 && rounds <=3)
+   			{	
+   				break;
+   			}
+   			else
+   			{
+   				Print("Sorry, but that is not a number I can accept... Let's try again!");
+   			}
+   		} // END while loop
+
+   		return rounds;
+    } // END rounds
+
     public static int anger(AlienData a1)
     {
 		String name = getName(a1);
         int hunger = getHungerLevel(a1);
-        int anger = 0;
+        int thirst = getThirstLevel(a1);
+        int irrit = getIrritLevel(a1);
+        int anger = hunger + thirst + irrit;
+        int angerlevel = 0;
         
-        if(hunger <= 3 && hunger >=1)
+        Print("\nPutting all of these together...");
+
+        if(anger <= 9 && anger >=1)
         {
         	Print("Also, " + name + " looks very happy! You can play together. [ANGER LEVEL 1]");
-        	anger = anger +1;
+        	angerlevel = angerlevel +1;
         }
-        else if(hunger <= 5 && hunger >=4)
+        else if(anger <= 15 && anger >=10)
         {
         	Print(name + " looks very calm at the moment, he probably likes you! [ANGER LEVEL 2]");
-        	anger = anger +2;
+        	angerlevel = angerlevel +2;
         }
-		else if(hunger <= 7 && hunger >=6)
+		else if(anger <= 21 && anger >=16)
         {
         	Print("I think " +name + " is tetchy. Please, be careful! [ANGER LEVEL 3]");
-        	anger = anger +3;
+        	angerlevel = angerlevel +3;
         }
-        else if(hunger <= 10 && hunger >= 8)
+        else if(anger <= 30 && anger >= 22)
         {
-			Print(name + " looks very dangerous! BE CAREFUL OUT THERE! [ANGER LEVEL 4]");
-        	anger = anger +4;
+			Print(name + " looks very dangerous! GET OUT THERE! [ANGER LEVEL 4]");
+        	angerlevel = angerlevel +4;
         }
         else
         {
         	Print("ERROR\nERROR\nERROR\nHmm... Something didn't worked as it should. I'm sorry about that...");
         }
        
-
-       return anger;
+       return angerlevel;
     } // END anger
-
-    public static void Print(String p)
-	{
-		System.out.println(p);
-		return;
-	} // END Print
-
-	public static String InputString(String s)
-	{
-		Scanner scanner = new Scanner(System.in);
-		Print(s);
-		return scanner.nextLine();
-	} // END Input String
 
 	public static void feed(AlienData a1)
 	{
 		String name = getName(a1);
 		int hunger = getHungerLevel(a1);
-		int anger = getAngerLevel(a1);
 		int random = random();
 		
 		while(true)
@@ -166,19 +177,56 @@ public class alien
 				else
 					{}
 
-				Print(name + "'s Hunger Level is " + hunger + " right now!\n");
 				a1 = setHungerLevel(a1, hunger);
-        		
-        		int angerUpdate = anger(a1);
-        		a1 = setAngerLevel(a1, angerUpdate);
-
         		Print("");
 
 				break;
 			}
 			else if(ans.equalsIgnoreCase("no"))
 			{
-				Print("\nJust be careful, maybe " + name + " will try to eat you.");
+				Print("\nJust be careful, maybe " + name + " will try to eat you.\n");
+				break;
+			}
+			else
+			{
+				Print("\nOh... That's an unexpected answer... Lets try again!");
+			}
+		} // END while
+
+		return;
+	} // END feed
+
+
+	public static void water(AlienData a1)
+	{
+		String name = getName(a1);
+		int Thirst = getThirstLevel(a1);
+		int random = random();
+		
+		while(true)
+		{
+			String ans = InputString("Do you want to give " + name + " some water? It will make him happier.\nYES/NO <-- [I'm not case sensitive]");
+			
+			if(ans.equalsIgnoreCase("yes"))
+			{
+				Print("\nAlright! Here is some food for " + name + ".");
+				Print(name + " likes it!");
+				Thirst = Thirst - random;
+
+				if(Thirst < 1)
+					Thirst = 1;
+				else
+					{}
+
+				Print(name + "'s Thirst Level is " + Thirst + " right now!\n");
+				a1 = setThirstLevel(a1, Thirst);
+        		Print("");
+
+				break;
+			}
+			else if(ans.equalsIgnoreCase("no"))
+			{
+				Print("\nJust be careful, maybe " + name + " will try to make a bad move if is not happy.\n");
 				break;
 			}
 			else
@@ -187,9 +235,117 @@ public class alien
 			}
 		} // END while
 
-		Print("\n\nFOR TEST ONLY:   " + name + "   " + hunger + "   " + anger + "\n");
 		return;
-	} // END feed
+	} // END water
+
+	public static void sing(AlienData a1)
+	{
+		String name = getName(a1);
+		int Irrit = getIrritLevel(a1);
+		int random = random();
+		
+		while(true)
+		{
+			String ans = InputString("Do you want to sing a song to " + name + "? He will become happier.\nYES/NO <-- [I'm not case sensitive]");
+			
+			if(ans.equalsIgnoreCase("yes"))
+			{
+				Print("\nAlright! Here is some food for " + name + ".");
+				Print(name + " likes it!");
+				Irrit = Irrit - random;
+
+				if(Irrit < 1)
+					Irrit = 1;
+				else
+					{}
+
+				Print(name + "'s Irrit Level is " + Irrit + " right now!\n");
+				a1 = setIrritLevel(a1, Irrit);
+        		Print("");
+
+				break;
+			}
+			else if(ans.equalsIgnoreCase("no"))
+			{
+				Print("\nJust be careful, maybe " + name + " will try to make a bad move if is not happy.\n");
+				break;
+			}
+			else
+			{
+					Print("\nOh... That's an unexpected answer... Lets try again!");
+			}
+		} // END while
+
+		return;
+	} // END irrit
+
+	    public static AlienData setName(AlienData p1, String name1)
+    {
+    	p1.name = name1;
+    	return p1;
+    } // END setName
+
+    public static AlienData setHungerLevel(AlienData p2, int hunger1)
+    {
+    	p2.HungerLevel = hunger1;
+    	return p2;
+    }  // END setHungerLevel
+
+    public static AlienData setAngerLevel(AlienData p3, int anger1)
+    {
+    	p3.AngerLevel = anger1;
+    	return p3;
+    }  // END setAngerLevel
+
+    public static AlienData setThirstLevel(AlienData p4, int thirst1)
+    {
+    	p4.ThirstLevel = thirst1;
+    	return p4;
+    }
+
+    public static AlienData setIrritLevel(AlienData p5, int Irrit1)
+    {
+    	p5.IrritLevel = Irrit1;
+    	return p5;
+    }
+
+    public static int getIrritLevel(AlienData a1)
+    {
+    	return a1.IrritLevel;
+    }
+
+    public static int getThirstLevel(AlienData a1)
+    {
+    	return a1.ThirstLevel;
+    }
+
+    public static String getName(AlienData a1)
+    {
+    	return a1.name;
+    }  // END getName
+
+    public static int getHungerLevel(AlienData a1) // hunger is a random number
+    {
+    	return a1.HungerLevel;
+    } // END getHungerLevel
+
+    public static int getAngerLevel(AlienData a1) 
+    {
+    	return a1.AngerLevel;
+    } // END getAngerLevel
+
+    public static void Print(String p)
+	{
+		System.out.println(p);
+		return;
+	} // END Print
+
+	public static String InputString(String s)
+	{
+		Scanner scanner = new Scanner(System.in);
+		Print(s);
+		return scanner.nextLine();
+	} // END Input String
 
 } // END class alien
 
