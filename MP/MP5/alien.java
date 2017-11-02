@@ -33,14 +33,16 @@ public class alien
 
         int r = rounds(a1);
 
-        for(int jj = 0; jj >= r; jj++)
+
+        for(int jj = 1; jj <= r; jj++)
         {
-        Print("\nROUND NUMBER: " + (r+1) + "\n");
+        Print("\nROUND NUMBER: " + (jj) + "\n");
         feed(a1);
         water(a1);
         sing(a1);
         a = anger(a1); // a1.name and a1.hungerlevel will be used here as well
         a1 = setAngerLevel(a1, a);
+        Print("");
     	}
 
         System.exit(0);
@@ -113,7 +115,6 @@ public class alien
    				Print("Sorry, but that is not a number I can accept... Let's try again!");
    			}
    		} // END while loop
-
    		return rounds;
     } // END rounds
 
@@ -130,7 +131,7 @@ public class alien
 
         if(anger <= 9 && anger >=1)
         {
-        	Print("Also, " + name + " looks very happy! You can play together. [ANGER LEVEL 1]");
+        	Print(name + " looks very happy! You can play together. [ANGER LEVEL 1]");
         	angerlevel = angerlevel +1;
         }
         else if(anger <= 15 && anger >=10)
