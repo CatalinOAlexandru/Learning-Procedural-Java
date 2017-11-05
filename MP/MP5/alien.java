@@ -32,17 +32,33 @@ public class alien
         a1 = setAngerLevel(a1, a);
 
         int r = rounds(a1);
-
+        int r2 = r;
 
         for(int jj = 1; jj <= r; jj++)
         {
-        Print("\nROUND NUMBER: " + (jj) + "\n");
-        feed(a1);
-        water(a1);
-        sing(a1);
-        a = anger(a1); // a1.name and a1.hungerlevel will be used here as well
-        a1 = setAngerLevel(a1, a);
-        Print("");
+	        Print("\nROUND NUMBER: " + (jj) + "\n");
+	        feed(a1);
+	        water(a1);
+	        sing(a1);
+	        a = anger(a1); // a1.name and a1.hungerlevel will be used here as well
+	        a1 = setAngerLevel(a1, a);
+	        Print("");
+
+	        if(r2 == 3)
+		    {
+		    	timepass(a1);
+		    	r2 = r2 - 1;
+		    }
+		    else if(r2 == 2)
+		    {
+		    	timepass(a1);
+		    	r2 = r2 - 1;
+		    }
+		    else
+		    {
+		    	Print("\nEND OF THE GAME\n");
+		    }
+
     	}
 
         System.exit(0);
@@ -96,6 +112,45 @@ public class alien
        int random = hunger.nextInt(LEVEL) + 1; // Generate a number and adds 1, otherwise we can get 0 or we cant get 10
        return random;
     } // END random
+
+    public static void timepass(AlienData a1)
+    {
+    	String name = getName(a1);
+        int hunger = getHungerLevel(a1);
+        int thirst = getThirstLevel(a1);
+        int irrit = getIrritLevel(a1);
+        int anger = getAngerLevel(a1);
+
+        Print("\n\n\n*********************************************************\n[12 Hours just passed]\n"+name+"'s hunger, thirst and Irritability Level increased:");
+        
+
+        hunger = hunger + random();
+        if(hunger > 10)
+        	{hunger = 10;}
+        else {} 
+        setHungerLevel(a1, hunger);
+    	Print("Hunger level: " + hunger + "/10.");
+
+
+        thirst = thirst + random();
+        if(thirst > 10)
+        	{thirst = 10;}
+        else {}
+        setThirstLevel(a1, thirst);
+    	Print("Thirst level: " + thirst + "/10.");
+
+
+        irrit = irrit + random();
+        if(irrit > 10)
+        	{irrit = 10;}
+        else {}
+       	setIrritLevel(a1, irrit);
+        Print("Irritability level is " + irrit + "/10.");
+
+        Print("*********************************************************\n\n\n");
+
+        return;
+    }
 
     public static int rounds(AlienData a1)
     {
@@ -178,6 +233,7 @@ public class alien
 				else
 					{}
 
+				Print(name + "'s hunger level is " + hunger + "/10.");
 				a1 = setHungerLevel(a1, hunger);
         		Print("");
 
@@ -210,7 +266,7 @@ public class alien
 			
 			if(ans.equalsIgnoreCase("yes"))
 			{
-				Print("\nAlright! Here is some food for " + name + ".");
+				Print("\nAlright! Here is some water for " + name + ".");
 				Print(name + " likes it!");
 				Thirst = Thirst - random;
 
@@ -251,7 +307,7 @@ public class alien
 			
 			if(ans.equalsIgnoreCase("yes"))
 			{
-				Print("\nAlright! Here is some food for " + name + ".");
+				Print("\nWow! That song is great!");
 				Print(name + " likes it!");
 				Irrit = Irrit - random;
 
