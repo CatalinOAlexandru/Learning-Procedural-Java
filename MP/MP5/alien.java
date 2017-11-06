@@ -1,6 +1,8 @@
 /* Author - Catalin Alexandru
 This program was created for the Mini Project (Suggestion 2)
-On the 
+On this version, the game will allow the user to select how many rounds he or she wants to play.
+The user will also make de decisions how to take care of the alien if they want or they will leave the alien to be angry.
+After each round, 12 hours will pass and the alien will become angreier.
 */
 
 import java.util.Scanner; // it imports the Scanner and makes it available to use
@@ -18,22 +20,26 @@ public class alien
 
         Print("On a scale of 1 to 10...");
 
-        int h = hunger(a1); // a1.name and a1.hungerlevel will be used here
-        a1 = setHungerLevel(a1, h); // transfer the random number into a1.hungerlevel
-        int t = thirst(a1);
-        a1 = setThirstLevel(a1, t);
-        int i = irritability(a1);
-        a1 = setIrritLevel(a1, i);
+        // The next lines will calcualte the hunger,thirst and irritability of the alien and will save them into the records
+        int h = hunger(a1); 
+        a1 = setHungerLevel(a1, h); 
+        int t = thirst(a1);	
+        a1 = setThirstLevel(a1, t); 
+        int i = irritability(a1); 
+        a1 = setIrritLevel(a1, i); 
 
         Print("(10 means very bad and 1 means not at all)\n");
 
-        int a = anger(a1); // a1.name and a1.hungerlevel will be used here as well
+        //  The anger will pe calculated and will be pritned on the screen
+        int a = anger(a1); 
         Print("(A lower anger level is better.)\n");
         a1 = setAngerLevel(a1, a);
 
+        // The user will be asked how many round he or she wants to play (up to 3 rounds)
         int r = rounds(a1);
         int r2 = r;
 
+        // This will loop the rounds and will allow the player to take care of the alien
         for(int jj = 1; jj <= r; jj++)
         {
 	        Print("\nROUND NUMBER: " + (jj) + "\n");
@@ -44,6 +50,7 @@ public class alien
 	        a1 = setAngerLevel(a1, a);
 	        Print("");
 
+	        // The if statement will make sure the alien will not get angreier at the end of the last round, because the time will not pass
 	        if(r2 == 3)
 		    {
 		    	timepass(a1);
@@ -65,6 +72,7 @@ public class alien
 
     } // END Main
 
+    // Will print a welcome message and will explain to the user what he or she will have to do
     public static void explain()
     {
         Print("\nWelcome to TRAAAAAAIN YOOOOOUR... alien...");
@@ -72,6 +80,7 @@ public class alien
     	return;
     }  // END explain
 
+    // Allow the user to give a name to the alien
     public static String name()
     {
         String alienname = InputString("How do you want to call your new Alien?");
@@ -79,6 +88,7 @@ public class alien
         return alienname;
     }  // END Name
 
+    // calculate alien's hunger level
     public static int hunger(AlienData a1)
     {
         String name = getName(a1);
@@ -88,6 +98,7 @@ public class alien
         return hunger;
     } // END hungers
 
+    // calculate alien's thist level
     public static int thirst(AlienData a1)
     {
     	String name = getName(a1);
@@ -97,6 +108,7 @@ public class alien
     	return thirst;
     }
 
+    // calculate alien's irritability level
     public static int irritability(AlienData a1)
     {
 		String name = getName(a1);
@@ -105,6 +117,7 @@ public class alien
     	return irrit;
     }
 
+    // generate a random number everytime the method is called
     public static int random()
     {
        final int LEVEL = 10;        // How hungry the alien can be
@@ -113,6 +126,7 @@ public class alien
        return random;
     } // END random
 
+    // allow the game to increse alien's anger by virtualy forwarding the game 12 hours
     public static void timepass(AlienData a1)
     {
     	String name = getName(a1);
@@ -152,6 +166,7 @@ public class alien
         return;
     }
 
+    // will ask the user how many rounds to play
     public static int rounds(AlienData a1)
     {
     	String name = getName(a1);
@@ -173,6 +188,7 @@ public class alien
    		return rounds;
     } // END rounds
 
+    // calculates the anger level based on the other stats (hunger, thirst and irritability)
     public static int anger(AlienData a1)
     {
 		String name = getName(a1);
@@ -212,6 +228,7 @@ public class alien
        return angerlevel;
     } // END anger
 
+    // will allow the user to decide if he or she wants to feed the alien to decrese the hunger level
 	public static void feed(AlienData a1)
 	{
 		String name = getName(a1);
@@ -253,7 +270,7 @@ public class alien
 		return;
 	} // END feed
 
-
+	// will allow the user to decide if he or she wants to give some water to the alien to decrese the thirst level
 	public static void water(AlienData a1)
 	{
 		String name = getName(a1);
@@ -295,6 +312,7 @@ public class alien
 		return;
 	} // END water
 
+	// will allow the user to decide if he or she wants to sing a song to the alien to decrese the irritability level
 	public static void sing(AlienData a1)
 	{
 		String name = getName(a1);
@@ -336,67 +354,79 @@ public class alien
 		return;
 	} // END irrit
 
-	    public static AlienData setName(AlienData p1, String name1)
+	// will set the name of the alien into the records
+	public static AlienData setName(AlienData p1, String name1)
     {
     	p1.name = name1;
     	return p1;
     } // END setName
 
+	// will set the hunger level of the alien into the records
     public static AlienData setHungerLevel(AlienData p2, int hunger1)
     {
     	p2.HungerLevel = hunger1;
     	return p2;
     }  // END setHungerLevel
 
+    // will set the anger level of the alien into the records
     public static AlienData setAngerLevel(AlienData p3, int anger1)
     {
     	p3.AngerLevel = anger1;
     	return p3;
     }  // END setAngerLevel
 
+    // will set the thirst level of the alien into the records
     public static AlienData setThirstLevel(AlienData p4, int thirst1)
     {
     	p4.ThirstLevel = thirst1;
     	return p4;
     }
 
+    // will set the irritability level of the alien into the records
     public static AlienData setIrritLevel(AlienData p5, int Irrit1)
     {
     	p5.IrritLevel = Irrit1;
     	return p5;
     }
 
+    // will get and return the irritability level from the records and return it where ever the getter method was called
     public static int getIrritLevel(AlienData a1)
     {
     	return a1.IrritLevel;
     }
 
+    // will get and return the thirst level from the records and return it where ever the getter method was called
     public static int getThirstLevel(AlienData a1)
     {
     	return a1.ThirstLevel;
     }
 
+    // will get and return the name of the alien from the records and return it where ever the getter method was called
     public static String getName(AlienData a1)
     {
     	return a1.name;
     }  // END getName
 
+    // will get and return the hunger level from the records and return it whereever the getter method was called
     public static int getHungerLevel(AlienData a1) // hunger is a random number
     {
     	return a1.HungerLevel;
     } // END getHungerLevel
 
+    // will get and return the anger level from the records and return it whereever the getter method was called
     public static int getAngerLevel(AlienData a1) 
     {
     	return a1.AngerLevel;
     } // END getAngerLevel
 
+    // a method which will allow me to print messages faster
     public static void Print(String p)
 	{
 		System.out.println(p);
 		return;
 	} // END Print
 
+	// a method which will allow me to get a string input from the user faster
 	public static String InputString(String s)
 	{
 		Scanner scanner = new Scanner(System.in);
@@ -407,6 +437,7 @@ public class alien
 } // END class alien
 
 
+// A new type or records which will store everything about the alien
 class AlienData
 {
 	String name;
