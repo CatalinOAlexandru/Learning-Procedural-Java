@@ -15,7 +15,7 @@ public class alien
     	AlienData a1 = new AlienData();
         explain(); // just some prints
         
-        AlienData[] Alienrray = new AlienData[999];
+        AlienData[] AlienRound = new AlienData[999];
 
         String n = name(); // get the name  
         a1 = setName(a1, n); // and transform it into a1.name here
@@ -43,6 +43,8 @@ public class alien
 
         int angerKiller = 0;
 
+        int randres = random();
+
         // This will loop the rounds and will allow the player to take care of the alien
         for(int jj = 1; jj <= r; jj++)
         {
@@ -56,13 +58,55 @@ public class alien
             if(a == 4) {angerKiller = angerKiller + 1;}
             else {angerKiller = 0;}
 
-            Print("\n@@@ FOR TEST ONLY: Anger Killer is: "+angerKiller);
+            // Print("\n@@@ FOR TEST ONLY: Anger Killer is: "+angerKiller);
             Print("");
 
             if(angerKiller == 3)
             {
                 Print("\n" + n + " just died... I'm sorry.\n" + n + "'s heart stopped because the angry level was too high.\n");
-                jj = r;
+                
+                while(true)
+                {
+                    String res = InputString("Do you want to try to ressurect " + n + " and continue to play? [You have 50% chance to succeed]");
+
+                    if(res.equalsIgnoreCase("yes"))
+                    {
+                        if(randres > 5)
+                        {
+                            Print("WOW! " + n + " is alive!");
+                            angerKiller = 0;
+
+                            // The if statement will make sure the alien will not get angreier at the end of the last round, because the time will not pass
+                            if(r2 >= 2)
+                            {
+                                timepass(a1);
+                                r2 = r2 - 1;
+                            }
+                            else
+                            {
+                                Print("\nEND OF THE GAME\n");
+                            }
+
+                            break;
+                        }
+                        else
+                        {
+                            Print("Oh... " + n +" is permanently dead");
+                            jj = r;
+                            break;
+                        }
+                    }
+                    else if(res.equalsIgnoreCase("no"))
+                    {
+                        Print("Alright, " + n + " was not a great pet anyway.");
+                        jj = r;
+                        break;
+                    }
+                    else
+                    {
+                        Print("That's not the answer I expected... Let's try again! ");
+                    }
+                }
             }
             else
             {
@@ -82,6 +126,15 @@ public class alien
         System.exit(0);
 
     } // END Main
+
+    public static ressurection(AlienData a1)
+    {
+        String name = getName(a1);
+        int hunger = getHungerLevel(a1);
+        int thirst = getThirstLevel(a1);
+        int irrit = getIrritLevel(a1);
+        int anger = getAngerLevel(a1);
+    }
 
     // Will print a welcome message and will explain to the user what he or she will have to do
     public static void explain()
@@ -251,6 +304,8 @@ public class alien
         	Print("ERROR\nERROR\nERROR\nHmm... Something didn't worked as it should. I'm sorry about that...");
         }
        
+        Print("NOTE: If " + name + "'s anger level will be level 4 for 3 rounds in a row, " + name + " will die.");
+
        return angerlevel;
     } // END anger
 
@@ -413,6 +468,19 @@ public class alien
     {
     	p5.IrritLevel = Irrit1;
     	return p5;
+    }
+
+    // will set the irritability level of the alien into the records
+    public static AlienData setRoundDetails()
+    {
+        p5.IrritLevel = Irrit1;
+        return p5;
+    }
+
+    // will get and return the irritability level from the records and return it where ever the getter method was called
+    public static int getRoundDetails(AlienData a1)
+    {
+        return a1.IrritLevel;
     }
 
     // will get and return the irritability level from the records and return it where ever the getter method was called
