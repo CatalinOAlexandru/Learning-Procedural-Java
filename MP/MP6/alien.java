@@ -41,19 +41,35 @@ public class alien
         int r = rounds(a1);
         int r2 = r;
 
-        int angerKiller = 0;
+        ressurectionAL(a1, r, r2, a);
 
+        System.exit(0);
+
+    } // END Main
+
+    public static void ressurectionAL(AlienData a1, int mainr, int mainr2, int maina)
+    {
+        int angerKiller = 0;
         int randres = random();
+        int r = mainr;
+        int r2 = mainr2;
+        int a = maina;
+
+        String n = getName(a1);
+        int hunger = getHungerLevel(a1);
+        int thirst = getThirstLevel(a1);
+        int irrit = getIrritLevel(a1);
+        int anger = getAngerLevel(a1);
 
         // This will loop the rounds and will allow the player to take care of the alien
         for(int jj = 1; jj <= r; jj++)
         {
-	        Print("\nROUND NUMBER: " + (jj) + "\n");
-	        feed(a1);
-	        water(a1);
-	        sing(a1);
-	        a = anger(a1); // a1.name and a1.hungerlevel will be used here as well
-	        a1 = setAngerLevel(a1, a);
+            Print("\nROUND NUMBER: " + (jj) + "\n");
+            feed(a1);
+            water(a1);
+            sing(a1);
+            a = anger(a1); // a1.name and a1.hungerlevel will be used here as well
+            a1 = setAngerLevel(a1, a);
             
             if(a == 4) {angerKiller = angerKiller + 1;}
             else {angerKiller = 0;}
@@ -74,6 +90,7 @@ public class alien
                         if(randres > 5)
                         {
                             Print("WOW! " + n + " is alive!");
+                            Print("");
                             angerKiller = 0;
 
                             // The if statement will make sure the alien will not get angreier at the end of the last round, because the time will not pass
@@ -121,20 +138,9 @@ public class alien
                     Print("\nEND OF THE GAME\n");
                 }
             }
-    	}
-
-        System.exit(0);
-
-    } // END Main
-
-    public static ressurection(AlienData a1)
-    {
-        String name = getName(a1);
-        int hunger = getHungerLevel(a1);
-        int thirst = getThirstLevel(a1);
-        int irrit = getIrritLevel(a1);
-        int anger = getAngerLevel(a1);
-    }
+        }
+        return;
+    } // END Ressurection
 
     // Will print a welcome message and will explain to the user what he or she will have to do
     public static void explain()
@@ -462,27 +468,24 @@ public class alien
     	p4.ThirstLevel = thirst1;
     	return p4;
     }
-
     // will set the irritability level of the alien into the records
     public static AlienData setIrritLevel(AlienData p5, int Irrit1)
     {
     	p5.IrritLevel = Irrit1;
     	return p5;
     }
-
-    // will set the irritability level of the alien into the records
+/*
     public static AlienData setRoundDetails()
     {
         p5.IrritLevel = Irrit1;
         return p5;
     }
 
-    // will get and return the irritability level from the records and return it where ever the getter method was called
     public static int getRoundDetails(AlienData a1)
     {
         return a1.IrritLevel;
     }
-
+*/
     // will get and return the irritability level from the records and return it where ever the getter method was called
     public static int getIrritLevel(AlienData a1)
     {
