@@ -15,6 +15,8 @@ public class alien
     	AlienData a1 = new AlienData();
         explain(); // just some prints
         
+        AlienData[] Alienrray = new AlienData[999];
+
         String n = name(); // get the name  
         a1 = setName(a1, n); // and transform it into a1.name here
 
@@ -39,6 +41,8 @@ public class alien
         int r = rounds(a1);
         int r2 = r;
 
+        int angerKiller = 0;
+
         // This will loop the rounds and will allow the player to take care of the alien
         for(int jj = 1; jj <= r; jj++)
         {
@@ -48,24 +52,31 @@ public class alien
 	        sing(a1);
 	        a = anger(a1); // a1.name and a1.hungerlevel will be used here as well
 	        a1 = setAngerLevel(a1, a);
-	        Print("");
+            
+            if(a == 4) {angerKiller = angerKiller + 1;}
+            else {angerKiller = 0;}
 
-	        // The if statement will make sure the alien will not get angreier at the end of the last round, because the time will not pass
-	        if(r2 == 3)
-		    {
-		    	timepass(a1);
-		    	r2 = r2 - 1;
-		    }
-		    else if(r2 == 2)
-		    {
-		    	timepass(a1);
-		    	r2 = r2 - 1;
-		    }
-		    else
-		    {
-		    	Print("\nEND OF THE GAME\n");
-		    }
+            Print("\n@@@ FOR TEST ONLY: Anger Killer is: "+angerKiller);
+            Print("");
 
+            if(angerKiller == 3)
+            {
+                Print("\n" + n + " just died... I'm sorry.\n" + n + "'s heart stopped because the angry level was too high.\n");
+                jj = r;
+            }
+            else
+            {
+                // The if statement will make sure the alien will not get angreier at the end of the last round, because the time will not pass
+                if(r2 >= 2)
+                {
+                    timepass(a1);
+                    r2 = r2 - 1;
+                }
+                else
+                {
+                    Print("\nEND OF THE GAME\n");
+                }
+            }
     	}
 
         System.exit(0);
@@ -135,7 +146,7 @@ public class alien
         int irrit = getIrritLevel(a1);
         int anger = getAngerLevel(a1);
 
-        Print("\n\n\n*********************************************************\n[12 Hours just passed]\n"+name+"'s hunger, thirst and Irritability Level increased:");
+        Print("\n\n\n*********************************************************\n[12 Hours just passed]\n"+name+"'s hunger, thirst and irritability Level increased:");
         
 
         hunger = hunger + random();
@@ -173,10 +184,25 @@ public class alien
     	int rounds;
     	Print("Now it's time to try to take care of " + name + ".");
     	
+        // this loop will make sure that the user will only input the right amont of rounds
    		while(true)
    		{
-   			rounds = Integer.parseInt(InputString("How many rounds do you want to play? (1-3)"));
-   			if(rounds >= 1 && rounds <=3)
+
+            // this loop will not allow the program to crash if the user will not input an integer
+            while(true)
+            {
+                try
+                {
+                    rounds = Integer.parseInt(InputString("How many rounds do you want to play? (up to 999)"));
+                    break; // will stop the loop
+                }
+                catch(Exception e)
+                {
+                    Print("\nWRONG INPUT - Please try again\n");
+                }
+            }
+
+   			if(rounds >= 1 && rounds <=999)
    			{	
    				break;
    			}
