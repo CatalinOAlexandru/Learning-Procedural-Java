@@ -47,7 +47,8 @@ public class alien
 
     } // END Main
 
-
+    // will allow the user to ressurect the alien 
+    // will allow the user to check the statistics at the end of the game
     public static void ressurectionAL(AlienData a1, int mainr, int mainr2, int maina)
     {
         int angerKiller = 0;
@@ -168,7 +169,24 @@ public class alien
         {
             r3t = InputString("\nWhich round do you want to see?");
             r3 = Integer.parseInt(r3t);
-            Print("\nsROUND: "  + r3);
+
+/*s
+            while(r3 <= r2 && r3 > 0)
+            {
+                try
+                {
+                    r3t = InputString("\nWhich round do you want to see?");
+                    r3 = Integer.parseInt(r3t);
+                    break; // will stop the loop
+                }
+                catch(Exception e)
+                {
+                    Print("\nWRONG INPUT - Please enter a round number you played\n");
+                }
+            }
+*/
+
+            Print("\nROUND: "  + r3);
             Print("Hunger level was: " + getHungerLevel(RoundsCount[r3]));
             Print("Thirst level was: " + getThirstLevel(RoundsCount[r3]));
             Print("Irritability level was: " + getIrritLevel(RoundsCount[r3]));
@@ -516,7 +534,7 @@ public class alien
     	p5.IrritLevel = Irrit1;
     	return p5;
     }
-
+    // will get all the data from the records and return them wherever the method is called
     public static AlienData setRoundDetails(AlienData p6, AlienData rounds)
     {
         p6.name = getName(rounds);
@@ -526,7 +544,7 @@ public class alien
         p6.AngerLevel = getAngerLevel(rounds);
         return p6;
     }
-
+    // will get the the a1 records and pass it into an array
     public static AlienData getRoundDetails(AlienData a1)
     {
         return a1;
