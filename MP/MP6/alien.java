@@ -47,6 +47,7 @@ public class alien
 
     } // END Main
 
+
     public static void ressurectionAL(AlienData a1, int mainr, int mainr2, int maina)
     {
         int angerKiller = 0;
@@ -60,6 +61,8 @@ public class alien
         int thirst = getThirstLevel(a1);
         int irrit = getIrritLevel(a1);
         int anger = getAngerLevel(a1);
+
+        AlienData[] RoundsCount = new AlienData[999];
 
         // This will loop the rounds and will allow the player to take care of the alien
         for(int jj = 1; jj <= r; jj++)
@@ -96,6 +99,8 @@ public class alien
                             // The if statement will make sure the alien will not get angreier at the end of the last round, because the time will not pass
                             if(r2 >= 2)
                             {
+                                RoundsCount[jj] = new AlienData();
+                                RoundsCount[jj] = setRoundDetails(RoundsCount[jj], getRoundDetails(a1));
                                 timepass(a1);
                                 r2 = r2 - 1;
                             }
@@ -108,7 +113,7 @@ public class alien
                         }
                         else
                         {
-                            Print("Oh... " + n +" is permanently dead");
+                            Print("\nOh... " + n +" is permanently dead");
                             jj = r;
                             break;
                         }
@@ -121,7 +126,7 @@ public class alien
                     }
                     else
                     {
-                        Print("That's not the answer I expected... Let's try again! ");
+                        Print("\nThat's not the answer I expected... Let's try again! ");
                     }
                 }
             }
@@ -130,15 +135,50 @@ public class alien
                 // The if statement will make sure the alien will not get angreier at the end of the last round, because the time will not pass
                 if(r2 >= 2)
                 {
+                    RoundsCount[jj] = new AlienData();
+                    RoundsCount[jj] = setRoundDetails(RoundsCount[jj], getRoundDetails(a1));
                     timepass(a1);
                     r2 = r2 - 1;
                 }
-                else
+                else if(r2 == 1) 
                 {
-                    Print("\nEND OF THE GAME\n");
+                    RoundsCount[jj] = new AlienData();
+                    RoundsCount[jj] = setRoundDetails(RoundsCount[jj], getRoundDetails(a1));
+                }
+                else // We dont need this part of the if statement any more.
+                {
+                    //Print("\nEND OF THE GAME\n");
                 }
             }
         }
+
+
+
+        // Kind of a new method will starts here
+        int r3;
+        String r3t;
+        String ans3 = "";
+
+        Print("\nEND OF THE GAME\n");
+
+        ans3 = InputString("\nDo you want to see the round statistics?");
+        //Print("FOR TEST ONLY: " + ans3);
+
+        while(ans3.equalsIgnoreCase("yes"))
+        {
+            r3t = InputString("\nWhich round do you want to see?");
+            r3 = Integer.parseInt(r3t);
+            Print("\nsROUND: "  + r3);
+            Print("Hunger level was: " + getHungerLevel(RoundsCount[r3]));
+            Print("Thirst level was: " + getThirstLevel(RoundsCount[r3]));
+            Print("Irritability level was: " + getIrritLevel(RoundsCount[r3]));
+            Print("Anger level was: " + getAngerLevel(RoundsCount[r3]));
+
+            ans3 = InputString("\nDo you want to see any other rounds statistics?");
+        }
+
+        Print("\nThanks for playing!\n");
+
         return;
     } // END Ressurection
 
@@ -309,8 +349,10 @@ public class alien
         {
         	Print("ERROR\nERROR\nERROR\nHmm... Something didn't worked as it should. I'm sorry about that...");
         }
-       
-        Print("NOTE: If " + name + "'s anger level will be level 4 for 3 rounds in a row, " + name + " will die.");
+        
+        if(anger >= 22)
+        Print("NOTE: If " + name + "'s anger level will be level 4 for 3 rounds in a row, " + name + " will die. (This message will print only if Anger Level is 4)");
+        else {}
 
        return angerlevel;
     } // END anger
@@ -474,18 +516,22 @@ public class alien
     	p5.IrritLevel = Irrit1;
     	return p5;
     }
-/*
-    public static AlienData setRoundDetails()
+
+    public static AlienData setRoundDetails(AlienData p6, AlienData rounds)
     {
-        p5.IrritLevel = Irrit1;
-        return p5;
+        p6.name = getName(rounds);
+        p6.HungerLevel = getHungerLevel(rounds);
+        p6.ThirstLevel = getThirstLevel(rounds);
+        p6.IrritLevel = getIrritLevel(rounds);
+        p6.AngerLevel = getAngerLevel(rounds);
+        return p6;
     }
 
-    public static int getRoundDetails(AlienData a1)
+    public static AlienData getRoundDetails(AlienData a1)
     {
-        return a1.IrritLevel;
+        return a1;
     }
-*/
+
     // will get and return the irritability level from the records and return it where ever the getter method was called
     public static int getIrritLevel(AlienData a1)
     {
