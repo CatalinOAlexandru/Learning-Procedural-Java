@@ -3,8 +3,6 @@ This program was created for the Mini Project (Suggestion 2)
 On this version, the game will allow the user to select how many rounds he or she wants to play.
 The user will also make de decisions how to take care of the alien if they want or they will leave the alien to be angry.
 After each round, 12 hours will pass and the alien will become angreier.
-
-NOTE: The colors in this program will work only with Windows Powershell (I think)
 */
 
 import java.util.Scanner; // it imports the Scanner and makes it available to use
@@ -22,7 +20,7 @@ public class alien
         String n = name(); // get the name  
         a1 = setName(a1, n); // and transform it into a1.name here
 
-        PrintC("On a scale of 1 to 10...", CYAN);
+        Print("On a scale of 1 to 10...");
 
         // The next lines will calcualte the hunger,thirst and irritability of the alien and will save them into the records
         int h = hunger(a1); 
@@ -32,7 +30,7 @@ public class alien
         int i = irritability(a1); 
         a1 = setIrritLevel(a1, i); 
 
-        PrintC("(10 means very bad and 1 means not at all)\n", CYAN);
+        Print("(10 means very bad and 1 means not at all)\n");
 
         //  The anger will pe calculated and will be pritned on the screen
         int a = anger(a1); 
@@ -205,8 +203,8 @@ public class alien
     // Will print a welcome message and will explain to the user what he or she will have to do
     public static void explain()
     {
-        PrintC("\nWelcome to TRAAAAAAIN YOOOOOUR... alien...", CYAN);
-        PrintC("You will be asked to input a name for your new alien and after that the program will print something special regarding your alien.\n", CYAN);
+        Print("\nWelcome to TRAAAAAAIN YOOOOOUR... alien...");
+        Print("You will be asked to input a name for your new alien and after that the program will print something special regarding your alien.\n");
     	return;
     }  // END explain
 
@@ -223,7 +221,7 @@ public class alien
     {
         String name = getName(a1);
         int hunger = random();
-        PrintC(name + "'s hunger level is " + hunger + "/10.", CYAN);
+        Print(name + "'s hunger level is " + hunger + "/10.");
    
         return hunger;
     } // END hungers
@@ -233,7 +231,7 @@ public class alien
     {
     	String name = getName(a1);
     	int thirst = random();
-    	PrintC(name + "'s thirst level is " + thirst + "/10.", CYAN);
+    	Print(name + "'s thirst level is " + thirst + "/10.");
 
     	return thirst;
     }
@@ -243,7 +241,7 @@ public class alien
     {
 		String name = getName(a1);
     	int irrit = random();
-    	PrintC(name + "'s irritability level is " + irrit + "/10.", CYAN);
+    	Print(name + "'s irritability level is " + irrit + "/10.");
     	return irrit;
     }
 
@@ -301,7 +299,7 @@ public class alien
     {
     	String name = getName(a1);
     	int rounds;
-    	PrintC("Now it's time to try to take care of " + name + ".", CYAN);
+    	Print("Now it's time to try to take care of " + name + ".");
     	
         // this loop will make sure that the user will only input the right amont of rounds
    		while(true)
@@ -312,12 +310,12 @@ public class alien
             {
                 try
                 {
-                    rounds = Integer.parseInt(InputStringC("How many rounds do you want to play? (up to 999)", CYAN));
+                    rounds = Integer.parseInt(InputString("How many rounds do you want to play? (up to 999)"));
                     break; // will stop the loop
                 }
                 catch(Exception e)
                 {
-                    Print(RED_BG + "\nWRONG INPUT - Please try again\n" + CRESET);
+                    Print("\nWRONG INPUT - Please try again\n");
                 }
             }
 
@@ -327,7 +325,7 @@ public class alien
    			}
    			else
    			{
-   				Print(RED_BG + "Sorry, but that is not a number I can accept... Let's try again!" + CRESET);
+   				Print("Sorry, but that is not a number I can accept... Let's try again!");
    			}
    		} // END while loop
    		return rounds;
@@ -367,7 +365,7 @@ public class alien
         }
         else
         {
-        	Print(RED_BG + "ERROR\nERROR\nERROR\nHmm... Something didn't worked as it should. I'm sorry about that..." + CRESET);
+        	Print("ERROR\nERROR\nERROR\nHmm... Something didn't worked as it should. I'm sorry about that...");
         }
         
         if(anger >= 22)
@@ -428,12 +426,12 @@ public class alien
 		
 		while(true)
 		{
-			String ans = InputStringC("Do you want to give " + name + " some water? It will make him happier.\nYES/NO <-- [I'm not case sensitive]", CYAN);
+			String ans = InputString("Do you want to give " + name + " some water? It will make him happier.\nYES/NO <-- [I'm not case sensitive]");
 			
 			if(ans.equalsIgnoreCase("yes"))
 			{
-				PrintC("\nAlright! Here is some water for " + name + ".", CYAN);
-				PrintC(name + " likes it!", CYAN);
+				Print("\nAlright! Here is some water for " + name + ".");
+				Print(name + " likes it!");
 				Thirst = Thirst - random;
 
 				if(Thirst < 1)
@@ -441,7 +439,7 @@ public class alien
 				else
 					{}
 
-				PrintC(name + "'s Thirst Level is " + Thirst + " right now!\n", CYAN);
+				Print(name + "'s Thirst Level is " + Thirst + " right now!\n");
 				a1 = setThirstLevel(a1, Thirst);
         		Print("");
 
@@ -449,12 +447,12 @@ public class alien
 			}
 			else if(ans.equalsIgnoreCase("no"))
 			{
-				PrintC("\nJust be careful, maybe " + name + " will try to make a bad move if is not happy.\n", CYAN);
+				Print("\nJust be careful, maybe " + name + " will try to make a bad move if is not happy.\n");
 				break;
 			}
 			else
 			{
-					Print(RED_BG + "\nOh... That's an unexpected answer... Lets try again!" + CRESET);
+					Print("\nOh... That's an unexpected answer... Lets try again!");
 			}
 		} // END while
 
@@ -589,13 +587,6 @@ public class alien
 		return;
 	} // END Print
 
-    // a method which will allow me to print messages in different colors
-    public static void PrintC(String p, String color)
-    {
-        System.out.println(color + p + CRESET);
-        return;
-    } // END PrintC
-
 	// a method which will allow me to get a string input from the user faster
 	public static String InputString(String s)
 	{
@@ -603,36 +594,6 @@ public class alien
 		Print(s);
 		return scanner.nextLine();
 	} // END Input String
-
-    public static String InputStringC(String s, String color)
-    {
-        Scanner scanner = new Scanner(System.in);
-        Print(color + s + CRESET);
-        return scanner.nextLine();
-    } // END Input String
-
-    // this Resets colors to white
-    public static final String CRESET  = "\u001B[0m"; 
-    
-    // Text color
-    public static final String BLACK  = "\u001B[30m";
-    public static final String RED    = "\u001B[31m";
-    public static final String GREEN  = "\u001B[32m";
-    public static final String YELLOW = "\u001B[33m";
-    public static final String BLUE   = "\u001B[34m";
-    public static final String PURPLE = "\u001B[35m";
-    public static final String CYAN   = "\u001B[36m";
-    public static final String WHITE  = "\u001B[37m";
-    
-    // BackGround color
-    public static final String BLACK_BG = "\u001B[40m";
-    public static final String RED_BG = "\u001B[41m";
-    public static final String GREEN_BG = "\u001B[42m";
-    public static final String YELLOW_BG = "\u001B[43m";
-    public static final String BLUE_BG = "\u001B[44m";
-    public static final String PURPLE_BG = "\u001B[45m";
-    public static final String CYAN_BG = "\u001B[46m";
-    public static final String WHITE_BG = "\u001B[47m";
 
 } // END class alien
 
