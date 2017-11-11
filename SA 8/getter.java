@@ -92,8 +92,6 @@ public class getter
     	int electricPriceFinal = 0;
     	int sunroofPriceFinal = 0;
 
-    	int total;
-
     	Print("\n\nBasic Price          : " + price);
 
     	if(electric.equalsIgnoreCase("Electric"))
@@ -122,7 +120,7 @@ public class getter
     	else
     		Print("Hmm... It looks like there was a problem. I'm sorry about that.");
 
-    	total = price + electricPriceFinal + sunroofPriceFinal;
+    	final int total = price + electricPriceFinal + sunroofPriceFinal;
     	Print("\nTotal                : " + total + "\n");
 
     	return;
