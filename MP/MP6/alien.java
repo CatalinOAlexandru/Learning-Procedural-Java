@@ -5,6 +5,7 @@ The user will also make de decisions how to take care of the alien if they want 
 After each round, 12 hours will pass and the alien will become angreier.
 */
 
+
 import java.util.Scanner; // it imports the Scanner and makes it available to use
 import java.util.Random; // it imports the Random and makes it available to use
 
@@ -52,16 +53,16 @@ public class alien
     public static void ressurectionAL(AlienData a1, int mainr, int mainr2, int maina)
     {
         int angerKiller = 0;
-        int randres = random();
-        int r = mainr;
-        int r2 = mainr2;
-        int a = maina;
+        int randres     = random();
+        int r           = mainr;
+        int r2          = mainr2;
+        int a           = maina;
 
-        String n = getName(a1);
-        int hunger = getHungerLevel(a1);
-        int thirst = getThirstLevel(a1);
-        int irrit = getIrritLevel(a1);
-        int anger = getAngerLevel(a1);
+        String n        = getName(a1);
+        int hunger      = getHungerLevel(a1);
+        int thirst      = getThirstLevel(a1);
+        int irrit       = getIrritLevel(a1);
+        int anger       = getAngerLevel(a1);
 
         AlienData[] RoundsCount = new AlienData[999];
 
@@ -167,34 +168,34 @@ public class alien
 
         while(ans3.equalsIgnoreCase("yes"))
         {
-            r3t = InputString("\nWhich round do you want to see?");
-            r3 = Integer.parseInt(r3t);
-
-/*s
-            while(r3 <= r2 && r3 > 0)
-            {
-                try
-                {
-                    r3t = InputString("\nWhich round do you want to see?");
-                    r3 = Integer.parseInt(r3t);
-                    break; // will stop the loop
-                }
-                catch(Exception e)
-                {
-                    Print("\nWRONG INPUT - Please enter a round number you played\n");
-                }
+          /* FIXED CODE */
+          while(true) {
+            	try {
+                    while(true) {
+                        r3t = InputString("\nWhich round do you want to see?");
+                        try {
+                            r3 = Integer.parseInt(r3t);
+                            break;
+                        }catch(Exception e) {
+                        	 Print("WRONG INPUT");
+                        }
+                    }
+                    Print("\nROUND: "  + r3);
+                    Print("Hunger level was: " + getHungerLevel(RoundsCount[r3]));
+                    Print("Thirst level was: " + getThirstLevel(RoundsCount[r3]));
+                    Print("Irritability level was: " + getIrritLevel(RoundsCount[r3]));
+                    Print("Anger level was: " + getAngerLevel(RoundsCount[r3]));
+                    ans3 = InputString("\nDo you want to see any other rounds statistics?");
+                    break;
+                    
+            	}catch(Exception e) {
+            		  Print("ARRAY IS LARGE");
+            	}
             }
-*/
-
-            Print("\nROUND: "  + r3);
-            Print("Hunger level was: " + getHungerLevel(RoundsCount[r3]));
-            Print("Thirst level was: " + getThirstLevel(RoundsCount[r3]));
-            Print("Irritability level was: " + getIrritLevel(RoundsCount[r3]));
-            Print("Anger level was: " + getAngerLevel(RoundsCount[r3]));
-
-            ans3 = InputString("\nDo you want to see any other rounds statistics?");
+         /* FIXED CODE END */
         }
-
+      
+      
         Print("\nThanks for playing!\n");
 
         return;
