@@ -34,7 +34,7 @@ public class whilething
 
 			if(ans.equalsIgnoreCase("car"))
 			{
-				car = car + 1;
+				car += 1;
 			}
 
 			else if(ans.equalsIgnoreCase("van"))
@@ -56,8 +56,8 @@ public class whilething
 				Print("Hmm... That was not an option... Let's try again!");
 			}
 		}
-			double totalcars = car + lorry + van;
-			double perslorry = (lorry / totalcars) * 100;
+			int totalcars = car + lorry + van;
+			double perslorry = (lorry / double(totalcars)) * 100;
 
 			perslorry = perslorry * 10;
 			perslorry = Math.round(perslorry);
