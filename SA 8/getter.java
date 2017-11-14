@@ -8,11 +8,7 @@ After that the program will print the prices for the user's decision and a final
 import java.util.Scanner; // it imports the Scanner and makes it available to use
 
 public class getter
-{  
-	static final int electricDiscount = -1000; // the discount of the electric model
-	static final int hybridDiscount = 0; // the discount of the hybrid model
-	static final int sunroofPrice = 500; // the sunroof price
-
+{ 
   	// Program starting point
     public static void main (String[] param)
     {
@@ -85,6 +81,10 @@ public class getter
     // This method will print the final statement about the the car price and the final total
     public static void total(Sales a1)
     {
+        final int electricDiscount = -1000;
+        final int hybridDiscount = 0;
+        final int sunroofPrice = 500;
+
     	int price = getPrice(a1);
     	String electric = getElectric(a1);
     	String sunroof = getSunroof(a1);
