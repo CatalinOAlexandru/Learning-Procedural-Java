@@ -6,6 +6,7 @@ After each round, 12 hours will pass and the alien will become angreier.
 */
 
 import java.util.Scanner; // it imports the Scanner and makes it available to use
+import java.util.ArrayList;
 import java.util.Random; // it imports the Random and makes it available to use
 
 public class alien
@@ -14,15 +15,13 @@ public class alien
     {
         
         int b = 0;
-        int alienCount = 3;
-        AlienData[] a1 = new AlienData[3];
+        int alienCount = 5;
+        AlienData[] a1 = new AlienData[alienCount];
         
         for(int a = 0; a < alienCount; a++) {
             a1[a] = new AlienData();
             
             explain(); // just some prints
-            
-            AlienData[] AlienRound = new AlienData[999];
 
             String n = name(); // get the name  
             a1[a] = setName(a1[a], n); // and transform it into a1.name here
@@ -61,22 +60,22 @@ public class alien
     // will allow the user to check the statistics at the end of the game
     public static void ressurectionAL(AlienData[] a1, int mainr, int mainr2, int maina)
     {
-        AlienData[] RoundsCount = new AlienData[999];
         
-        for(int c = 0; c < 3; c++) {
+        AlienData[][] RoundsCount = new AlienData[999][999];
+        
+        for(int c = 0; c < a1.length; c++) {
             
         int angerKiller = 0;
-        int randres = random();
-        int r = mainr;
-        int r2 = mainr2;
-        int a = maina;
+        int randres     = random();
+        int r           = mainr;
+        int r2          = mainr2;
+        int a           = maina;
         
-        String n = getName(a1[c]);
-        int hunger = getHungerLevel(a1[c]);
-        int thirst = getThirstLevel(a1[c]);
-        int irrit = getIrritLevel(a1[c]);
-        int anger = getAngerLevel(a1[c]);
-
+        String n        = getName(a1[c]);
+        int hunger      = getHungerLevel(a1[c]);
+        int thirst      = getThirstLevel(a1[c]);
+        int irrit       = getIrritLevel(a1[c]);
+        int anger       = getAngerLevel(a1[c]);
 
         // This will loop the rounds and will allow the player to take care of the alien
         for(int jj = 1; jj <= r; jj++)
@@ -113,9 +112,10 @@ public class alien
                             // The if statement will make sure the alien will not get angreier at the end of the last round, because the time will not pass
                             if(r2 >= 2)
                             {
-                                RoundsCount[jj] = new AlienData();
-                                RoundsCount[jj] = setRoundDetails(RoundsCount[jj], getRoundDetails(a1[c]));
-                                timepass(a1);
+                                RoundsCount[c][jj] = new AlienData();
+                                RoundsCount[c][jj] = setRoundDetails(RoundsCount[c][jj], getRoundDetails(a1[c]));
+                        
+                                timepass(a1[c]);
                                 r2 = r2 - 1;
                             }
                             else
@@ -149,19 +149,17 @@ public class alien
                 // The if statement will make sure the alien will not get angreier at the end of the last round, because the time will not pass
                 if(r2 >= 2)
                 {
-                    RoundsCount[jj] = new AlienData();
-                    RoundsCount[jj] = setRoundDetails(RoundsCount[jj], getRoundDetails(a1[c]));
-                    timepass(a1);
+                    RoundsCount[c][jj] = new AlienData();
+                    RoundsCount[c][jj] = setRoundDetails(RoundsCount[c][jj], getRoundDetails(a1[c]));
+         
+                    timepass(a1[c]);
                     r2 = r2 - 1;
                 }
                 else if(r2 == 1) 
                 {
-                    RoundsCount[jj] = new AlienData();
-                    RoundsCount[jj] = setRoundDetails(RoundsCount[jj], getRoundDetails(a1[c]));
-                }
-                else // We dont need this part of the if statement any more.
-                {
-                    //Print("\nEND OF THE GAME\n");
+                     RoundsCount[c][jj] = new AlienData();
+                     RoundsCount[c][jj] = setRoundDetails(RoundsCount[c][jj], getRoundDetails(a1[c]));
+                
                 }
             }
             
@@ -169,11 +167,26 @@ public class alien
             
         }
 
-
+        
+        // Prints out all data
+         Print("DATA>>");
+   
+         
+         for(int b = 0; b < 3; b++) {
+             System.out.println(b + " Alien Number");
+             Print("Hunger level was: " + getHungerLevel(RoundsCount[b][1]));
+             Print("Thirst level was: " + getThirstLevel(RoundsCount[b][1]));
+             Print("Irritability level was: " + getIrritLevel(RoundsCount[b][1]));
+             Print("Anger level was: " + getAngerLevel(RoundsCount[b][1]));
+         }
+         
+         Print("<<DATA");
 
         // Kind of a new method will starts here
         int r3;
+        int r4 ;
         String r3t;
+        String r4t;
         String ans3 = "";
 
         Print("\nEND OF THE GAME\n");
@@ -181,11 +194,22 @@ public class alien
         ans3 = InputString("\nDo you want to see the round statistics?");
         //Print("FOR TEST ONLY: " + ans3);
 
+        System.out.println("Total Number of Aliens Created: "+ a1.length + " [ ARRAY starts from 0 )) ]");
+       
         while(ans3.equalsIgnoreCase("yes"))
         {
 
             while(true) {
                 try {
+                    while(true) {
+                        r4t = InputString("\nWhich Alien do you want to see?");
+                        try {
+                            r4 = Integer.parseInt(r4t);
+                            break;
+                        }catch(Exception e) {
+                            
+                        }
+                    }
                     while(true) {
                         r3t = InputString("\nWhich round do you want to see?");
                         try {
@@ -195,11 +219,12 @@ public class alien
                             
                         }
                     }
-                    Print("\nROUND: "  + r3);
-                    Print("Hunger level was: " + getHungerLevel(RoundsCount[r3]));
-                    Print("Thirst level was: " + getThirstLevel(RoundsCount[r3]));
-                    Print("Irritability level was: " + getIrritLevel(RoundsCount[r3]));
-                    Print("Anger level was: " + getAngerLevel(RoundsCount[r3]));
+                    
+                    Print( "Alien Number : " + r4 + " Round \nROUND: "  + r3);
+                    Print("Hunger level was: " + getHungerLevel(RoundsCount[r4][r3]));
+                    Print("Thirst level was: " + getThirstLevel(RoundsCount[r4][r3]));
+                    Print("Irritability level was: " + getIrritLevel(RoundsCount[r4][r3]));
+                    Print("Anger level was: " + getAngerLevel(RoundsCount[r4][r3]));
                     ans3 = InputString("\nDo you want to see any other rounds statistics?");
                     break;
                     
@@ -270,15 +295,14 @@ public class alien
     } // END random
 
     // allow the game to increse alien's anger by virtualy forwarding the game 12 hours
-    public static void timepass(AlienData[] a1)
+    public static void timepass(AlienData a1)
     {
-        for(int c = 0; c < 3; c++) {
-            
-        String name = getName(a1[c]);
-        int hunger  = getHungerLevel(a1[c]);
-        int thirst  = getThirstLevel(a1[c]);
-        int irrit   = getIrritLevel(a1[c]);
-        int anger   = getAngerLevel(a1[c]);
+        
+        String name = getName(a1);
+        int hunger  = getHungerLevel(a1);
+        int thirst  = getThirstLevel(a1);
+        int irrit   = getIrritLevel(a1);
+        int anger   = getAngerLevel(a1);
 
         Print("\n\n\n*********************************************************\n[12 Hours just passed]\n"+name+"'s hunger, thirst and irritability Level increased:");
         
@@ -287,7 +311,7 @@ public class alien
         if(hunger > 10)
             {hunger = 10;}
         else {} 
-        setHungerLevel(a1[c], hunger);
+        setHungerLevel(a1, hunger);
         Print("Hunger level: " + hunger + "/10.");
 
 
@@ -295,7 +319,7 @@ public class alien
         if(thirst > 10)
             {thirst = 10;}
         else {}
-        setThirstLevel(a1[c], thirst);
+        setThirstLevel(a1, thirst);
         Print("Thirst level: " + thirst + "/10.");
 
 
@@ -303,11 +327,11 @@ public class alien
         if(irrit > 10)
             {irrit = 10;}
         else {}
-        setIrritLevel(a1[c], irrit);
+        setIrritLevel(a1, irrit);
         Print("Irritability level is " + irrit + "/10.");
 
         Print("*********************************************************\n\n\n");
-        }
+        
         return;
     }
 
