@@ -64,7 +64,7 @@ public class alien
         int irrit       = getIrritLevel(a1);
         int anger       = getAngerLevel(a1);
 
-        AlienData[] RoundsCount = new AlienData[999];
+        AlienData[] RoundsCount = new AlienData[r2];
 
         // This will loop the rounds and will allow the player to take care of the alien
         for(int jj = 1; jj <= r; jj++)
