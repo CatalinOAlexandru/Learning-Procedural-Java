@@ -5,23 +5,20 @@ The user will also make de decisions how to take care of the alien if they want 
 After each round, 12 hours will pass and the alien will become angreier.
 */
 
-import java.util.Scanner; // it imports the Scanner and makes it available to use
-import java.util.ArrayList;
-import java.util.Random; // it imports the Random and makes it available to use
+import java.util.*; // it imports the entire java util library and makes it available to use
+
 
 public class alien
 {
     public static void main (String[] param)
     {
-        
-        int b = 0;
-        int alienCount = 5;
+        explain(); // just some prints
+        int angerLvL = 0;
+        int alienCount = Integer.parseInt(InputString("How many aliens do you want to take care of"));
         AlienData[] a1 = new AlienData[alienCount];
-        
+
         for(int a = 0; a < alienCount; a++) {
             a1[a] = new AlienData();
-            
-            explain(); // just some prints
 
             String n = name(); // get the name  
             a1[a] = setName(a1[a], n); // and transform it into a1.name here
@@ -39,9 +36,9 @@ public class alien
             Print("(10 means very bad and 1 means not at all)\n");
 
             //  The anger will pe calculated and will be pritned on the screen
-            b = anger(a1[a]); 
+            angerLvL = anger(a1[a]); 
             Print("(A lower anger level is better.)\n");
-            a1[a] = setAngerLevel(a1[a], b);
+            a1[a] = setAngerLevel(a1[a], angerLvL);
             
             // The user will be asked how many round he or she wants to play (up to 3 rounds)
        
@@ -50,7 +47,7 @@ public class alien
         int r = rounds(a1);
         int r2 = r;
 
-        ressurectionAL(a1, r, r2, b);
+        ressurectionAL(a1, r, r2, angerLvL);
 
         System.exit(0);
 
@@ -61,16 +58,16 @@ public class alien
     public static void ressurectionAL(AlienData[] a1, int mainr, int mainr2, int maina)
     {
         
-        AlienData[][] RoundsCount = new AlienData[999][999];
-        
-        for(int c = 0; c < a1.length; c++) {
-            
         int angerKiller = 0;
         int randres     = random();
         int r           = mainr;
         int r2          = mainr2;
         int a           = maina;
+
+        AlienData[][] RoundsCount = new AlienData[r2][r2];
         
+        for(int c = 0; c < a1.length; c++) {
+
         String n        = getName(a1[c]);
         int hunger      = getHungerLevel(a1[c]);
         int thirst      = getThirstLevel(a1[c]);
@@ -191,7 +188,7 @@ public class alien
 
         Print("\nEND OF THE GAME\n");
 
-        ans3 = InputString("\nDo you want to see the round statistics?");
+        ans3 = InputString("\nDo you want to see the round statistics? \nYES/NO <-- [I'm not case sensitive]");
         //Print("FOR TEST ONLY: " + ans3);
 
         System.out.println("Total Number of Aliens Created: "+ a1.length + " [ ARRAY starts from 0 )) ]");
@@ -211,7 +208,7 @@ public class alien
                         }
                     }
                     while(true) {
-                        r3t = InputString("\nWhich round do you want to see?");
+                        r3t = InputString("\nWhich round do you want to see? Type a round number you played");
                         try {
                             r3 = Integer.parseInt(r3t);
                             break;
@@ -225,7 +222,7 @@ public class alien
                     Print("Thirst level was: " + getThirstLevel(RoundsCount[r4][r3]));
                     Print("Irritability level was: " + getIrritLevel(RoundsCount[r4][r3]));
                     Print("Anger level was: " + getAngerLevel(RoundsCount[r4][r3]));
-                    ans3 = InputString("\nDo you want to see any other rounds statistics?");
+                    ans3 = InputString("\nDo you want to see any other rounds statistics? \nYES/NO <-- [I'm not case sensitive]");
                     break;
                     
                 }catch(Exception e) {
@@ -251,7 +248,7 @@ public class alien
     // Allow the user to give a name to the alien
     public static String name()
     {
-        String alienname = InputString("How do you want to call your new Alien?");
+        String alienname = InputString("\nHow do you want to call your new Alien?");
         Print("Happy 0th Birthday " + alienname + " the Alien!\n");
         return alienname;
     }  // END Name
@@ -349,7 +346,7 @@ public class alien
                 {
                     try
                     {
-                        rounds = Integer.parseInt(InputString("How many rounds do you want to play? (up to 999)"));
+                        rounds = Integer.parseInt(InputString("How many rounds do you want to play?"));
                         break; // will stop the loop
                     }
                     catch(Exception e)
@@ -358,7 +355,7 @@ public class alien
                     }
                 }
     
-                if(rounds >= 1 && rounds <=999)
+                if(rounds >= 1)
                 {   
                     break;
                 }
