@@ -14,10 +14,25 @@ public class alien_old
         explain(); // just some prints
         
         int b = 0;
-        int alienCount = Integer.parseInt(InputString("How many aliens do you want to take care of?"));
+        int alienCount;
+
+        while(true)
+        {
+            try
+            {
+                alienCount = Integer.parseInt(InputString("How many aliens do you want to take care of?"));
+                break;
+            }
+            catch(Exception e)
+            {
+                Print("\nERROR: Please input a number.");
+            }
+        }
+
         AlienData[] a1 = new AlienData[alienCount];
         
-        for(int a = 0; a < alienCount; a++) {
+        for(int a = 0; a < alienCount; a++) 
+        {
             a1[a] = new AlienData();
 
             String n = name(); // get the name  
@@ -53,11 +68,11 @@ public class alien_old
     // will allow the user to check the statistics at the end of the game
     public static void ressurectionAL(AlienData[] a1, int mainr, int maina, int alienCount)
     {
-        int alienCount2 = alienCount + 1;
+        int alienCount2 = alienCount + 10;
         AlienData[][] RoundsCount = new AlienData[alienCount2][alienCount2];
         
-        for(int c = 0; c < a1.length; c++) {
-            
+        for(int c = 0; c < a1.length; c++) // START 1st for loop
+        {    
         int angerKiller = 0;
         int randres     = random();
         int r           = mainr;
@@ -71,7 +86,7 @@ public class alien_old
         int anger       = getAngerLevel(a1[c]);
 
         // This will loop the rounds and will allow the player to take care of the alien
-        for(int jj = 1; jj <= r; jj++)
+        for(int jj = 1; jj <= r; jj++) // START 2nd for loop
         {
             Print("\nROUND NUMBER: " + (jj) + "\n");
             feed(a1[c]);
@@ -122,6 +137,7 @@ public class alien_old
                         {
                             Print("\nOh... " + n +" is permanently dead");
                             jj = r;
+                            a1[c] = set
                             break;
                         }
                     }
@@ -155,29 +171,10 @@ public class alien_old
                 
                 }
             }
-            
-        }
-            
-        }
-
-        
-        // Prints out all data
+        } // end 2nd for loop
+        } // end 1st for loop
          
-   
-         /*
-        Print("\n<<<FINAL DATA>>>");
-        for(int b = 0; b <= (alienCount-1); b++) {
-            System.out.println("\n" + b + " Alien Number");
-            Print("Hunger level was: " + getHungerLevel(RoundsCount[b][1]));
-            Print("Thirst level was: " + getThirstLevel(RoundsCount[b][1]));
-            Print("Irritability level was: " + getIrritLevel(RoundsCount[b][1]));
-            Print("Anger level was: " + getAngerLevel(RoundsCount[b][1]));
-         }
-        Print("\n>>>FINAL DATA<<<\n");
-        */
-         
-         
-
+        // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
         // Kind of a new method will starts here
         int r3;
         int r4 ;
@@ -190,7 +187,6 @@ public class alien_old
         Print("\nEND OF THE GAME\n");
 
         ans3 = InputString("\nDo you want to see the round statistics? \nType YES or anything else to refuse. <-- [I'm not case sensitive]");
-        //Print("FOR TEST ONLY: " + ans3);
 
         System.out.println("\nTotal Number of Aliens Created: "+ a1.length);
        
@@ -205,7 +201,7 @@ public class alien_old
                             r4 = Integer.parseInt(r4t);
                             break;
                         }catch(Exception e) {
-                            Print("ERROR: You have to input a number");
+                            Print("\nERROR: You have to input a number");
                         }
                     }
                     while(true) {
@@ -214,16 +210,14 @@ public class alien_old
                             r3 = Integer.parseInt(r3t);
                             break;
                         }catch(Exception e) {
-                            Print("ERROR: You have to input a number");
+                            Print("\nERROR: You have to input a number");
                         }
                     }
 
                     r4 = r4 - 1;
-                    //r3 = r3 - 1;
                     r4array = r4;
                     r3array = r3;
                     r4 = r4 + 1;
-                    //r3 = r3 + 1;
 
                     Print("\nAlien Number : " + r4 + "\nROUND: "  + r3 + "\n");
                     Print("Hunger level was: " + getHungerLevel(RoundsCount[r4array][r3array]));
@@ -234,7 +228,7 @@ public class alien_old
                     break;
                     
                 }catch(Exception e) {
-                      Print("ERROR: That number is too large and you probably don't have data into that round.");
+                      Print("ERROR: That number is too large and you probably don't have data into that round/alien.");
                 }
             }
  

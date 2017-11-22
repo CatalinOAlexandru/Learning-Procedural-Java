@@ -335,7 +335,7 @@ public class alien
             {
                 try
                 {
-                    rounds = Integer.parseInt(InputString("How many rounds do you want to play?"));
+                    rounds = Integer.parseInt(InputString("\nHow many rounds do you want to play?"));
                     break; // will stop the loop
                 }
                 catch(Exception e)
