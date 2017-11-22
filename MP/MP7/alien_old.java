@@ -7,16 +7,16 @@ After each round, 12 hours will pass and the alien will become angreier.
 
 import java.util.*; // it imports the entire java util library and makes it available to use
 
-
 public class alien_old
 {
     public static void main (String[] param)
     {
         explain(); // just some prints
-        int angerLvL = 0;
-        int alienCount = Integer.parseInt(InputString("How many aliens do you want to take care of"));
+        
+        int b = 0;
+        int alienCount = Integer.parseInt(InputString("How many aliens do you want to take care of?"));
         AlienData[] a1 = new AlienData[alienCount];
-
+        
         for(int a = 0; a < alienCount; a++) {
             a1[a] = new AlienData();
 
@@ -26,28 +26,24 @@ public class alien_old
             Print("On a scale of 1 to 10...");
 
             // The next lines will calcualte the hunger,thirst and irritability of the alien and will save them into the records
-            int h = hunger(a1[a]); 
-            a1[a] = setHungerLevel(a1[a], h); 
-            int t = thirst(a1[a]);  
-            a1[a] = setThirstLevel(a1[a], t); 
-            int i = irritability(a1[a]); 
-            a1[a] = setIrritLevel(a1[a], i); 
+            a1[a] = setHungerLevel(a1[a], hunger(a1[a]));   
+            a1[a] = setThirstLevel(a1[a], thirst(a1[a])); 
+            a1[a] = setIrritLevel(a1[a], irritability(a1[a])); 
 
             Print("(10 means very bad and 1 means not at all)\n");
 
             //  The anger will pe calculated and will be pritned on the screen
-            angerLvL = anger(a1[a]); 
+            b = anger(a1[a]); 
             Print("(A lower anger level is better.)\n");
-            a1[a] = setAngerLevel(a1[a], angerLvL);
+            a1[a] = setAngerLevel(a1[a], b);
             
             // The user will be asked how many round he or she wants to play (up to 3 rounds)
        
         }
 
         int r = rounds(a1);
-        int r2 = r;
 
-        ressurectionAL(a1, r, r2, angerLvL);
+        ressurectionAL(a1, r, b, alienCount);
 
         System.exit(0);
 
@@ -55,19 +51,19 @@ public class alien_old
 
     // will allow the user to ressurect the alien 
     // will allow the user to check the statistics at the end of the game
-    public static void ressurectionAL(AlienData[] a1, int mainr, int mainr2, int maina)
+    public static void ressurectionAL(AlienData[] a1, int mainr, int maina, int alienCount)
     {
+        int alienCount2 = alienCount + 1;
+        AlienData[][] RoundsCount = new AlienData[alienCount2][alienCount2];
         
+        for(int c = 0; c < a1.length; c++) {
+            
         int angerKiller = 0;
         int randres     = random();
         int r           = mainr;
-        int r2          = mainr2;
+        int r2          = r;
         int a           = maina;
-
-        AlienData[][] RoundsCount = new AlienData[r2][r2];
         
-        for(int c = 0; c < a1.length; c++) {
-
         String n        = getName(a1[c]);
         int hunger      = getHungerLevel(a1[c]);
         int thirst      = getThirstLevel(a1[c]);
@@ -154,8 +150,8 @@ public class alien_old
                 }
                 else if(r2 == 1) 
                 {
-                     RoundsCount[c][jj] = new AlienData();
-                     RoundsCount[c][jj] = setRoundDetails(RoundsCount[c][jj], getRoundDetails(a1[c]));
+                    RoundsCount[c][jj] = new AlienData();
+                    RoundsCount[c][jj] = setRoundDetails(RoundsCount[c][jj], getRoundDetails(a1[c]));
                 
                 }
             }
@@ -166,18 +162,21 @@ public class alien_old
 
         
         // Prints out all data
-         Print("DATA>>");
+         
    
-         
-         for(int b = 0; b < 3; b++) {
-             System.out.println(b + " Alien Number");
-             Print("Hunger level was: " + getHungerLevel(RoundsCount[b][1]));
-             Print("Thirst level was: " + getThirstLevel(RoundsCount[b][1]));
-             Print("Irritability level was: " + getIrritLevel(RoundsCount[b][1]));
-             Print("Anger level was: " + getAngerLevel(RoundsCount[b][1]));
+         /*
+        Print("\n<<<FINAL DATA>>>");
+        for(int b = 0; b <= (alienCount-1); b++) {
+            System.out.println("\n" + b + " Alien Number");
+            Print("Hunger level was: " + getHungerLevel(RoundsCount[b][1]));
+            Print("Thirst level was: " + getThirstLevel(RoundsCount[b][1]));
+            Print("Irritability level was: " + getIrritLevel(RoundsCount[b][1]));
+            Print("Anger level was: " + getAngerLevel(RoundsCount[b][1]));
          }
+        Print("\n>>>FINAL DATA<<<\n");
+        */
          
-         Print("<<DATA");
+         
 
         // Kind of a new method will starts here
         int r3;
@@ -185,13 +184,15 @@ public class alien_old
         String r3t;
         String r4t;
         String ans3 = "";
+        int r4array;
+        int r3array;
 
         Print("\nEND OF THE GAME\n");
 
-        ans3 = InputString("\nDo you want to see the round statistics? \nYES/NO <-- [I'm not case sensitive]");
+        ans3 = InputString("\nDo you want to see the round statistics? \nType YES or anything else to refuse. <-- [I'm not case sensitive]");
         //Print("FOR TEST ONLY: " + ans3);
 
-        System.out.println("Total Number of Aliens Created: "+ a1.length + " [ ARRAY starts from 0 )) ]");
+        System.out.println("\nTotal Number of Aliens Created: "+ a1.length);
        
         while(ans3.equalsIgnoreCase("yes"))
         {
@@ -199,40 +200,47 @@ public class alien_old
             while(true) {
                 try {
                     while(true) {
-                        r4t = InputString("\nWhich Alien do you want to see?");
+                        r4t = InputString("1.Which Alien do you want to see?");
                         try {
                             r4 = Integer.parseInt(r4t);
                             break;
                         }catch(Exception e) {
-                            
+                            Print("ERROR: You have to input a number");
                         }
                     }
                     while(true) {
-                        r3t = InputString("\nWhich round do you want to see? Type a round number you played");
+                        r3t = InputString("2.Which round do you want to see?");
                         try {
                             r3 = Integer.parseInt(r3t);
                             break;
                         }catch(Exception e) {
-                            
+                            Print("ERROR: You have to input a number");
                         }
                     }
-                    
-                    Print( "Alien Number : " + r4 + " Round \nROUND: "  + r3);
-                    Print("Hunger level was: " + getHungerLevel(RoundsCount[r4][r3]));
-                    Print("Thirst level was: " + getThirstLevel(RoundsCount[r4][r3]));
-                    Print("Irritability level was: " + getIrritLevel(RoundsCount[r4][r3]));
-                    Print("Anger level was: " + getAngerLevel(RoundsCount[r4][r3]));
-                    ans3 = InputString("\nDo you want to see any other rounds statistics? \nYES/NO <-- [I'm not case sensitive]");
+
+                    r4 = r4 - 1;
+                    //r3 = r3 - 1;
+                    r4array = r4;
+                    r3array = r3;
+                    r4 = r4 + 1;
+                    //r3 = r3 + 1;
+
+                    Print("\nAlien Number : " + r4 + "\nROUND: "  + r3 + "\n");
+                    Print("Hunger level was: " + getHungerLevel(RoundsCount[r4array][r3array]));
+                    Print("Thirst level was: " + getThirstLevel(RoundsCount[r4array][r3array]));
+                    Print("Irritability level was: " + getIrritLevel(RoundsCount[r4array][r3array]));
+                    Print("Anger level was: " + getAngerLevel(RoundsCount[r4array][r3array]));
+                    ans3 = InputString("\nDo you want to see any other rounds statistics? \nType YES or anything else to refuse. <-- [I'm not case sensitive]");
                     break;
                     
                 }catch(Exception e) {
-                    
+                      Print("ERROR: That number is too large and you probably don't have data into that round.");
                 }
             }
  
         }
 
-        Print("\nThanks for playing!\n");
+        Print("\nThanks for playing! (Code 03)\n");
 
         return;
     } // END Ressurection
@@ -355,7 +363,7 @@ public class alien_old
                     }
                 }
     
-                if(rounds >= 1)
+                if(rounds >= 1 && rounds <=999)
                 {   
                     break;
                 }
@@ -480,7 +488,7 @@ public class alien_old
                 else
                     {}
 
-                Print(name + "'s Thirst Level is " + Thirst + " right now!\n");
+                Print(name + "'s Thirst Level is " + Thirst + "/10 right now!\n");
                 a1 = setThirstLevel(a1, Thirst);
                 Print("");
 
@@ -522,7 +530,7 @@ public class alien_old
                 else
                     {}
 
-                Print(name + "'s Irrit Level is " + Irrit + " right now!\n");
+                Print(name + "'s Irrit Level is " + Irrit + "/10 right now!\n");
                 a1 = setIrritLevel(a1, Irrit);
                 Print("");
 

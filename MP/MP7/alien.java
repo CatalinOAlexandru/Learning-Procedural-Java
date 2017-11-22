@@ -11,6 +11,45 @@ public class alien
     {
     	explain(); // just some prints
 
+    	//AlienData a1 = new AlienData();
+
+    	int alienCount = Integer.parseInt(InputString("How many aliens do you want to take care of?"));
+
+    	AlienData myAliens[] = new AlienData[alienCount];
+    	//for( int i=0; i<myAliens.length; i++)
+     	//{ 
+    	  
+     	//}
+     	for (int i=0; i<alienCount; i++)
+     	{ 
+     		AlienData a1 = new AlienData();
+    	  	myAliens[i] = a1;
+	        myAliens[i] = setName(myAliens[i], name());
+	        myAliens[i] = setHungerLevel(myAliens[i], hunger(myAliens[i]));
+	        myAliens[i] = setThirstLevel(myAliens[i], thirst(myAliens[i]));
+	        myAliens[i] = setIrritLevel(myAliens[i], irritability(myAliens[i]));
+	        myAliens[i] = setAngerLevel(myAliens[i], anger(myAliens[i]));
+    	}
+
+    	int roundNumb = rounds();
+    	AlienData[] RoundsCount;
+
+        for (int currentRound=0; currentRound<=roundNumb; currentRound++)
+        {
+        	for (int alienIndex=0; alienIndex<=alienCount; alienIndex++)
+        	{
+        		RoundsCount = ressurectionAL(myAliens[alienIndex], roundNumb);
+        		roundStatistics(myAliens[alienIndex], roundNumb, RoundsCount);
+        		//AlienData myHistory[][] = new AlienData[alienCount][roundCount];
+        	}
+        }
+
+        
+
+
+
+
+/*
     	AlienData a1 = new AlienData();
 
         a1 = setName(a1, name()); // and transform it into a1.name here
@@ -30,8 +69,8 @@ public class alien
 
         // The user will be asked how many round he or she wants to play 
         int roundNumb = rounds(a1);
-
-        ressurectionAL(a1, roundNumb);
+*/
+        //ressurectionAL(a1, roundNumb);
 
         System.exit(0);
 
@@ -39,7 +78,7 @@ public class alien
 
     // will allow the user to ressurect the alien 
     // will allow the user to check the statistics at the end of the game
-    public static void ressurectionAL(AlienData a1, int mainRoundNumb)
+    public static AlienData[] ressurectionAL(AlienData a1, int mainRoundNumb)
     {
         int angerKiller    = 0;
         int randres        = random();
@@ -139,18 +178,20 @@ public class alien
                 {}
             }
         }
+    return RoundsCount;
+	} // END Ressurection
 
-
-
+	public static void roundStatistics(AlienData a1, int mainRoundNumb, AlienData[] RoundsCountmain)
+	{
+        // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
         // Kind of a new method will starts here
         int roundStatistics;
+        int roundNumbPrint = 0;
+        AlienData[] RoundsCount = RoundsCountmain;
 
         Print("\nEND OF THE GAME (Code 02)\n");
 
         String ans3 = InputString("\nDo you want to see the round statistics? \nType YES or anything else to refuse. <-- [I'm not case sensitive]");
-        //Print("FOR TEST ONLY: " + ans3);
-
-
 
         while(ans3.equalsIgnoreCase("yes"))
         {
@@ -183,10 +224,7 @@ public class alien
         }
         Print("\nThanks for playing!\n");
         return;
-    } // END Ressurection
-
-
-
+    } // END roundStatistics
 
 
     // Will print a welcome message and will explain to the user what he or she will have to do
@@ -253,7 +291,6 @@ public class alien
         int anger = getAngerLevel(a1);
 
         Print("\n\n\n*********************************************************\n[12 Hours just passed]\n"+name+"'s hunger, thirst and irritability Level increased:");
-        
 
         hunger = hunger + random();
         if(hunger > 10)
@@ -284,11 +321,11 @@ public class alien
     }
 
     // will ask the user how many rounds to play
-    public static int rounds(AlienData a1)
+    public static int rounds()
     {
-    	String name = getName(a1);
+    	//String name = getName(a1);
     	int rounds;
-    	Print("Now it's time to try to take care of " + name + ".");
+    	//Print("Now it's time to try to take care of " + name + ".");
     	
         // this loop will make sure that the user will only input the right amont of rounds
    		while(true)
@@ -587,7 +624,6 @@ public class alien
 	} // END Input String
 
 } // END class alien
-
 
 // A new type or records which will store everything about the alien
 class AlienData
