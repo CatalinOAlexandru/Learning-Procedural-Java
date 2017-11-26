@@ -1,10 +1,3 @@
-/* Author - Catalin Alexandru
-This program was created for the Mini Project (Suggestion 2)
-On this version, the game will allow the user to select how many rounds he or she wants to play.
-The user will also make de decisions how to take care of the alien if they want or they will leave the alien to be angry.
-After each round, 12 hours will pass and the alien will become angreier.
-*/
-
 import java.util.*; // it imports the entire java util library and makes it available to use
 
 public class alien_old
@@ -64,6 +57,19 @@ public class alien_old
 
     } // END Main
 
+    
+    public static void EatAlien(AlienData[] a1, String DeadAlienname) {
+        
+        for(int a = 0; a < a1.length; a++) {
+            // check if alien is alive
+            if(a1[a].dead == false) {
+                // do something with alive alien
+                System.out.println(a1[a].name + " is eating " + DeadAlienname + "'s dead body!! [Hunger Level Increased]");
+                a1[a].HungerLevel += 3;
+            }
+        }   
+    }
+    
     // will allow the user to ressurect the alien 
     // will allow the user to check the statistics at the end of the game
     public static void ressurectionAL(AlienData[] a1, int mainr, int maina, int alienCount)
@@ -122,7 +128,7 @@ public class alien_old
                             {
                                 RoundsCount[c][jj] = new AlienData();
                                 RoundsCount[c][jj] = setRoundDetails(RoundsCount[c][jj], getRoundDetails(a1[c]));
-                        
+                                a1[c].name = "dead";
                                 timepass(a1[c]);
                                 r2 = r2 - 1;
                             }
@@ -137,7 +143,8 @@ public class alien_old
                         {
                             Print("\nOh... " + n +" is permanently dead");
                             jj = r;
-                            a1[c] = set
+                            a1[c].dead = true;
+                            EatAlien(a1,  a1[c].name);
                             break;
                         }
                     }
@@ -145,6 +152,8 @@ public class alien_old
                     {
                         Print("Alright, " + n + " was not a great pet anyway.");
                         jj = r;
+                        a1[c].dead = true;
+                        EatAlien(a1,  a1[c].name);
                         break;
                     }
                     else
@@ -650,4 +659,5 @@ class AlienData
     int AngerLevel;
     int ThirstLevel;
     int IrritLevel; // Irritability Level
+    boolean dead = false;
 }
