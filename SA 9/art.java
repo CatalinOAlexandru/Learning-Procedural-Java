@@ -10,34 +10,33 @@ import java.util.*; // it imports the entire java util library and makes it avai
 class art
 {
 	// the program will start from here
-	public static void main (String[]param)
-	{
-		whichroom();
+    public static void main(String[] args) 
+    {
+		whichroom(passArray());
 		System.exit(0);
+	}
+
+	public static Painting[] passArray()
+	{
+		Painting[] paintings = new Painting[4];
+		for(int a = 0; a < 4; a++)
+  		paintings[a] = new Painting();
+  
+  		return paintings;
 	}
 
 	// this method will set all the data for all rooms and will set them into an array
 	// this method will ask the user in which room he or she currently is and will print facts about a popular painting
-	public static void whichroom()
+	public static void whichroom(Painting[] paintings)
 	{
-		Painting p1= new Painting(); 
-		Painting p2= new Painting();
-		Painting p3= new Painting();
-		Painting p4= new Painting();
-
-		Painting[]paintings = new Painting[4];
-		paintings[0]=p1;
-		paintings[1]=p2;
-		paintings[2]=p3;
-		paintings[3]=p4;
 
 		ArtCollection artCollection = new ArtCollection();
-		artCollection.paintings= paintings;
+		artCollection.paintings= paintings;  //  paintings ??? bruhh. paintings does not exists
 		
-		artCollection.paintings[0] = newMethod("Girl With Chrysanthemums", "Olga Boznanska", 1894, 3,p1);
-		artCollection.paintings[1] = newMethod("Woman With a Pearl Necklace in a Loge","Mary Cassat",1979,1, p2);
-		artCollection.paintings[2] = newMethod("Self-Portrait with Baret and Turned-up Collar","Rembrandt",1659,2, p3);
-		artCollection.paintings[3] = newMethod("Impression , Sunrise", "Claude Monet", 1872, 4, p4);
+		artCollection.paintings[0] = newMethod("Girl With Chrysanthemums", "Olga Boznanska", 1894, 3,paintings[0]);
+		artCollection.paintings[1] = newMethod("Woman With a Pearl Necklace in a Loge","Mary Cassat",1979,1, paintings[1] );
+		artCollection.paintings[2] = newMethod("Self-Portrait with Baret and Turned-up Collar","Rembrandt",1659,2, paintings[2]);
+		artCollection.paintings[3] = newMethod("Impression , Sunrise", "Claude Monet", 1872, 4, paintings[3]);
 
 		
 		int userinp = 0;
