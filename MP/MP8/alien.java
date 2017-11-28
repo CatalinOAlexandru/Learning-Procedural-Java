@@ -6,7 +6,7 @@ public class alien
     {
         explain(); // just some prints
         
-        int b = 0;
+        int AngerLVL = 0;
         int alienCount;
 
         while(true)
@@ -41,17 +41,17 @@ public class alien
             Print("(10 means very bad and 1 means not at all)\n");
 
             //  The anger will pe calculated and will be pritned on the screen
-            b = anger(a1[a]); 
+            AngerLVL = anger(a1[a]); 
             Print("(A lower anger level is better.)\n");
-            a1[a] = setAngerLevel(a1[a], b);
+            a1[a] = setAngerLevel(a1[a], AngerLVL);
             
             // The user will be asked how many round he or she wants to play (up to 3 rounds)
        
         }
 
-        int r = rounds(a1);
-
-        ressurectionAL(a1, r, b, alienCount);
+        int numberRounds = rounds(a1);
+        AlienData[][] RoundsCount = ressurectionAL(a1, numberRounds, AngerLVL, alienCount);
+        statistics(a1, numberRounds, AngerLVL, alienCount, RoundsCount);
 
         System.exit(0);
 
@@ -72,7 +72,7 @@ public class alien
     
     // will allow the user to ressurect the alien 
     // will allow the user to check the statistics at the end of the game
-    public static void ressurectionAL(AlienData[] a1, int mainr, int maina, int alienCount)
+    public static AlienData[][] ressurectionAL(AlienData[] a1, int r, int a, int alienCount)
     {
         int alienCount2 = alienCount + 10;
         AlienData[][] RoundsCount = new AlienData[alienCount2][alienCount2];
@@ -81,15 +81,9 @@ public class alien
         {    
         int angerKiller = 0;
         int randres     = random();
-        int r           = mainr;
-        int r2          = r;
-        int a           = maina;
+        int r2          = r; // r2 represents a back-up of the round number, r will be modified
         
         String n        = getName(a1[c]);
-        int hunger      = getHungerLevel(a1[c]);
-        int thirst      = getThirstLevel(a1[c]);
-        int irrit       = getIrritLevel(a1[c]);
-        int anger       = getAngerLevel(a1[c]);
 
         // This will loop the rounds and will allow the player to take care of the alien
         for(int jj = 1; jj <= r; jj++) // START 2nd for loop
@@ -104,7 +98,6 @@ public class alien
             if(a == 4) {angerKiller = angerKiller + 1;}
             else {angerKiller = 0;}
 
-            // Print("\n@@@ FOR TEST ONLY: Anger Killer is: "+angerKiller);
             Print("");
 
             if(angerKiller == 3)
@@ -150,7 +143,7 @@ public class alien
                     }
                     else if(res.equalsIgnoreCase("no"))
                     {
-                        Print("Alright, " + n + " was not a great pet anyway.");
+                        Print("\nAlright, " + n + " was not a great pet anyway.");
                         jj = r;
                         a1[c].dead = true;
                         EatAlien(a1,  a1[c].name);
@@ -182,8 +175,12 @@ public class alien
             }
         } // end 2nd for loop
         } // end 1st for loop
-         
-        // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+        return RoundsCount;
+     } // END Ressurection
+
+     public static void statistics(AlienData[] a1, int r, int a, int alienCount, AlienData[][] RoundsCount)
+     {    
+
         // Kind of a new method will starts here
         int r3;
         int r4 ;
@@ -246,7 +243,7 @@ public class alien
         Print("\nThanks for playing! (Code 03)\n");
 
         return;
-    } // END Ressurection
+    } // END statistics
 
     // Will print a welcome message and will explain to the user what he or she will have to do
     public static void explain()
@@ -310,7 +307,6 @@ public class alien
         int hunger  = getHungerLevel(a1);
         int thirst  = getThirstLevel(a1);
         int irrit   = getIrritLevel(a1);
-        int anger   = getAngerLevel(a1);
 
         Print("\n\n\n*********************************************************\n[12 Hours just passed]\n"+name+"'s hunger, thirst and irritability Level increased:");
         
