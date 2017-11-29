@@ -51,36 +51,43 @@ public class alien
 
         int numberRounds = rounds(a1);
         AlienData[][] RoundsCount = ressurectionAL(a1, numberRounds, AngerLVL, alienCount);
-        
-        bubblesort(RoundsCount, c, jj);
-
+      
+        bubblesort(RoundsCount, alienCount, numberRounds);
+      
         statistics(a1, numberRounds, AngerLVL, alienCount, RoundsCount);
 
         System.exit(0);
 
     } // END Main
 
-    public static void bubblesort(AlienData[][] RoundsCount, int c, int jj)
+    public static void bubblesort(AlienData[][] RoundsCount, int alienCount, int numberRounds)
     {
     	boolean sorted = false;
-    	// int c is the current alien
-    	// int jj is the current round which contains all the data of the c alien
+      int f = 0;
+      int k = 0;
 
+      // int c is the current alien
+    	// int jj is the current round which contains all the data of the c alien
+      
     	while(!sorted)
     	{
     		sorted = true;
-    		for(int i=0; i<RoundsCount.length-1; i++)
+        f = 0;
+        k = 0;
+    		while(f < alienCount && k < numberRounds)
     		{
-    			if(getAngerLevel(RoundsCount[c][jj]) > getAngerLevel(RoundsCount[c][jj+1])) // swap them
+    			if(getAngerLevel(RoundsCount[f][k]) > getAngerLevel(RoundsCount[f][k+1])) // swap them
     			{
-    				int tmp = getAngerLevel(RoundsCount[c][jj+1]);
-    				RoundsCount[c][jj+1] = setAngerLevel(RoundsCount[c][jj+1], getAngerLevel(RoundsCount[c][jj]));
-    				RoundsCount[c][jj] = setAngerLevel(RoundsCount[c][jj], tmp);
+    				int tmp = getAngerLevel(RoundsCount[f][k+1]);
+    				RoundsCount[f][k+1] = setAngerLevel(RoundsCount[f][k+1], getAngerLevel(RoundsCount[f][k]));
+    				RoundsCount[f][k] = setAngerLevel(RoundsCount[f][k], tmp);
     				sorted = false; // array wasn't sorted
     			} // end if statement
+          f = f +1;
+          k = k +1;
     		} // end for loop
 
-    		Print("The highest Anger level in round "+ c +" was: " + getAngerLevel(RoundsCount[c][jj-1]));
+    		Print("The highest Anger level in round "+ k +" was: " + getAngerLevel(RoundsCount[f][k-1]));
 
     	} // end while loop
     	return;
@@ -201,6 +208,8 @@ public class alien
                 
                 }
             }
+
+            
 
         } // end 2nd for loop
         } // end 1st for loop
