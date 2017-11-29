@@ -51,13 +51,41 @@ public class alien
 
         int numberRounds = rounds(a1);
         AlienData[][] RoundsCount = ressurectionAL(a1, numberRounds, AngerLVL, alienCount);
+        
+        bubblesort(RoundsCount, c, jj);
+
         statistics(a1, numberRounds, AngerLVL, alienCount, RoundsCount);
 
         System.exit(0);
 
     } // END Main
 
-    
+    public static void bubblesort(AlienData[][] RoundsCount, int c, int jj)
+    {
+    	boolean sorted = false;
+    	// int c is the current alien
+    	// int jj is the current round which contains all the data of the c alien
+
+    	while(!sorted)
+    	{
+    		sorted = true;
+    		for(int i=0; i<RoundsCount.length-1; i++)
+    		{
+    			if(getAngerLevel(RoundsCount[c][jj]) > getAngerLevel(RoundsCount[c][jj+1])) // swap them
+    			{
+    				int tmp = getAngerLevel(RoundsCount[c][jj+1]);
+    				RoundsCount[c][jj+1] = setAngerLevel(RoundsCount[c][jj+1], getAngerLevel(RoundsCount[c][jj]));
+    				RoundsCount[c][jj] = setAngerLevel(RoundsCount[c][jj], tmp);
+    				sorted = false; // array wasn't sorted
+    			} // end if statement
+    		} // end for loop
+
+    		Print("The highest Anger level in round "+ c +" was: " + getAngerLevel(RoundsCount[c][jj-1]));
+
+    	} // end while loop
+    	return;
+    } // end bubblesort
+
     public static void EatAlien(AlienData[] a1, String DeadAlienname) {
         
         for(int a = 0; a < a1.length; a++) {
@@ -79,11 +107,11 @@ public class alien
         
         for(int c = 0; c < a1.length; c++) // START 1st for loop
         {    
-        int angerKiller = 0;
-        int randres     = random();
-        int r2          = r; // r2 represents a back-up of the round number, r will be modified
-        
-        String n        = getName(a1[c]);
+	        int angerKiller = 0;
+	        int randres     = random();
+	        int r2          = r; // r2 represents a back-up of the round number, r will be modified
+	        
+	        String n        = getName(a1[c]);
 
         // This will loop the rounds and will allow the player to take care of the alien
         for(int jj = 1; jj <= r; jj++) // START 2nd for loop
@@ -173,6 +201,7 @@ public class alien
                 
                 }
             }
+
         } // end 2nd for loop
         } // end 1st for loop
         return RoundsCount;
@@ -220,12 +249,10 @@ public class alien
                         }
                     }
 
-                    r4 = r4 - 1;
-                    r4array = r4;
+                    r4array = (r4-1);
                     r3array = r3;
-                    r4 = r4 + 1;
 
-                    Print("\nAlien Number : " + r4 + "\nROUND: "  + r3 + "\n");
+                    Print("\nAlien Number : " + (r4+1) + "\nROUND: "  + r3 + "\n");
                     Print("Hunger level was: " + getHungerLevel(RoundsCount[r4array][r3array]));
                     Print("Thirst level was: " + getThirstLevel(RoundsCount[r4array][r3array]));
                     Print("Irritability level was: " + getIrritLevel(RoundsCount[r4array][r3array]));
@@ -234,7 +261,7 @@ public class alien
                     break;
                     
                 }catch(Exception e) {
-                      Print("ERROR: That number is too large and you probably don't have data into that round/alien.");
+                    Print("ERROR: That number is too large and you probably don't have data into that round/alien.");
                 }
             }
  
@@ -592,6 +619,13 @@ public class alien
         p6.AngerLevel = getAngerLevel(rounds);
         return p6;
     }
+
+    public static AlienData setAngerDetails(AlienData p7, AlienData rounds)
+    {
+        p7.AngerLevel = getAngerLevel(rounds);
+        return p7;
+    }
+
     // will get the the a1 records and pass it into an array
     public static AlienData getRoundDetails(AlienData a1)
     {
