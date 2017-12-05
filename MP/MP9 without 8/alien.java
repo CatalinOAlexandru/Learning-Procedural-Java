@@ -1,11 +1,17 @@
+/* Author - Catalin Alexandru
+This program was created for the Mini Project (Suggestion 2)
+*/
+
 import java.util.*; // it imports the entire java util library and makes it available to use
+import java.io.*;
 
 public class alien
 {
-    public static void main (String[] param)
+    public static void main (String[] param) throws IOException
     {
+        readStatistics(); // it can read old game statistics
         explain(); // just some prints
-        
+
         int AngerLVL = 0;
         int alienCount;
 
@@ -52,31 +58,115 @@ public class alien
         int numberRounds = rounds(a1);
         AlienData[][] RoundsCount = ressurectionAL(a1, numberRounds, AngerLVL, alienCount);
       
-        bubblesort(RoundsCount, alienCount, numberRounds);
+        //bubblesort(RoundsCount, alienCount, numberRounds);
       
-        statistics(a1, numberRounds, AngerLVL, alienCount, RoundsCount);
+        statistics(a1, numberRounds, alienCount, RoundsCount);
 
         System.exit(0);
 
     } // END Main
 
+    // this method will ask the user if he or she want to print any game statistics from previous games or just continue to the game
+    public static void readStatistics() throws IOException
+    {
+    	String ans  = "";
+    	String ans2 = "";
+    	Print("Do you want to START a new game or READ previous game Statistics?");
+    	
+    	while(true)
+    	{
+    		ans = InputString("Write START or READ <-- [I'm not case sensitive]");
+    		if(ans.equalsIgnoreCase("READ"))
+    		{
+    			Print("");
+    			try(BufferedReader inputStream = new BufferedReader(new FileReader("statistics.txt"))) 
+    			{
+    				for(String lineToPr; (lineToPr = inputStream.readLine()) != null;) 
+    				{
+    					Print(lineToPr);
+    				}
+				}
+
+    			Print("Do you want to CONTINUE to a new game or CLOSE the game?");
+    	
+    			while(true)
+    			{
+    				ans2 = InputString("Write CONTINUE or CLOSE <-- [I'm not case sensitive]");
+    				if(ans2.equalsIgnoreCase("CONTINUE"))
+    				{
+    					Print("");
+    					return;
+    				}
+    				else if(ans2.equalsIgnoreCase("CLOSE"))
+    				{
+    					Print("\nThanks for playing! (Code 04)\n");
+    					System.exit(0);
+    				}
+    				else
+    				{
+    					Print("\nThat's an unexpected answer... Let's try again!");
+    				}
+    			}
+    		}
+    		else if(ans.equalsIgnoreCase("START"))
+    		{
+    			return;
+    		}
+    		else
+    		{
+    			Print("\nThat's an unexpected answer... Let's try again!");
+    		}
+    	}
+    } // END readStatistics
+
+    // This method will sort the aliens and the rounds inside the RoundsCount array
     public static void bubblesort(AlienData[][] RoundsCount, int alienCount, int numberRounds)
     {
+		System.out.println(RoundsCount[0][0]); // Alien 1 Round 1
+		System.out.println(RoundsCount[0][1]); // Alien 1 Round 2
+
+		System.out.println(RoundsCount[1][0]); // Alien 2 Round 1
+    	System.out.println(RoundsCount[1][1]); // Alien 2 Round 2
+
+    	Print("");
+/*
+
+    	boolean sorted=false;
+    	while(!sorted)
+    	{
+    		sorted = true; //array potentially sorted
+    		for(int i=0; i<RoundsCount.length-1; i++)
+    		{
+    			if(RoundsCount[i] > RoundsCount[i+1]) //swap them
+    			{
+    				int tmp = RoundsCount[i+1];
+    				RoundsCount[i+1] = RoundsCount[i];
+    				RoundsCount[i] = tmp;
+    				sorted = false; // array wasn't sorted
+    			}
+    		}
+    	}
+*/
+    	System.out.println(RoundsCount[0][0]); // Alien 1 Round 1
+		System.out.println(RoundsCount[0][1]); // Alien 1 Round 2
+
+		System.out.println(RoundsCount[1][0]); // Alien 2 Round 1
+    	System.out.println(RoundsCount[1][1]); // Alien 2 Round 2
+
+    	Print("");
+
+/* ------------------------------------------- OLD ---------------------------------------------------------------
     	boolean sorted = false;
      	int f = 0;
      	int k = 0;
-
     	// int c is the current alien
     	// int jj is the current round which contains all the data of the c alien
-      
     	while(!sorted)
     	{
     		sorted = true;
-      	f = 0; // Alien number
-        k = 0; // Round number
-
+      		f = 0; // Alien number
+        	k = 0; // Round number
 		Print("The Aliens with the highest Anger level in Round " + (k+1) + " are:");
-
     		while(f+1 < alienCount && k+1 < numberRounds)
     		{
     			// print
@@ -84,30 +174,34 @@ public class alien
     			{
     				// print
     				int tmp = getAngerLevel(RoundsCount[f+1][k]);
-
     				//RoundsCount[f+1][k] = setAngerLevel(RoundsCount[f+1][k], getAngerLevel(RoundsCount[f][k])); // original line
     				setAngerLevel(RoundsCount[f+1][k], getAngerLevel(RoundsCount[f][k])); // new line for test
-
     				//RoundsCount[f][k] = setAngerLevel(RoundsCount[f][k], tmp); // original line
     				setAngerLevel(RoundsCount[f][k], tmp); //new line for test
-
     				sorted = false; // array wasn't sorted
     			} // end if statement
-
                 f = f +1;
                 k = k +1;
-
                 for(int rc = 1; rc <= numberRounds; rc++)
     			{
     				Print("Alien number " + rc + " with anger level " + getAngerLevel(RoundsCount[rc][(k-1)]));
     			}
-
-    		} // end for loop
-
+   			} // end for loop
     	} // end while loop
+---------------------------------------------- END OLD -------------------------------------------------------------- */
     	return;
     } // end bubblesort
 
+    // this method will swap data inside an array
+    public static void swap(int[]a, int i, int j)
+	{
+		int t = a[j];
+		a[j] = a[i];
+		a[i] = t;
+		return;
+	} // END swap
+
+	// this method will increse the hunger level of other aliens when one of them will die
     public static void EatAlien(AlienData[] a1, String DeadAlienname) {
         
         for(int a = 0; a < a1.length; a++) {
@@ -118,7 +212,8 @@ public class alien
                 a1[a].HungerLevel += 3;
             }
         }   
-    }
+        return;
+    } // END EatAlien
     
     // will allow the user to ressurect the alien 
     // will allow the user to check the statistics at the end of the game
@@ -231,10 +326,8 @@ public class alien
         return RoundsCount;
      } // END Ressurection
 
-     public static void statistics(AlienData[] a1, int r, int a, int alienCount, AlienData[][] RoundsCount)
+     public static void statistics(AlienData[] a1, int numberRounds, int alienCount, AlienData[][] RoundsCount) throws IOException
      {    
-
-        // Kind of a new method will starts here
         int r3;
         int r4 ;
         String r3t;
@@ -291,7 +384,33 @@ public class alien
  
         }
 
-        Print("\nThanks for playing! (Code 03)\n");
+        String ans4 = "";
+        ans4 = InputString("Do you want to SAVE the statistics? \nType YES or anything else to refuse. <-- [I'm not case sensitive]");
+
+        if(ans4.equalsIgnoreCase("YES"))
+        {
+        	PrintWriter outputStream = new PrintWriter(new FileWriter("statistics.txt"));
+
+        	for(int pAlien=1; pAlien<=alienCount; pAlien++)
+        	{
+        		for(int pRound=1; pRound<=numberRounds; pRound++)
+        		{
+        			outputStream.println("Alien Name: " + getName(RoundsCount[(pAlien-1)][pRound]) + " --- Round Number: " + pRound);
+        			outputStream.println("Hunger level was: " + getHungerLevel(RoundsCount[(pAlien-1)][pRound]));
+        			outputStream.println("Thirst level was: " + getThirstLevel(RoundsCount[(pAlien-1)][pRound]));
+        			outputStream.println("Irritability level was: " + getIrritLevel(RoundsCount[(pAlien-1)][pRound]));
+        			outputStream.println("Anger level was: " + getAngerLevel(RoundsCount[(pAlien-1)][pRound]));
+        			outputStream.println("");
+        		}
+        	}
+
+        	outputStream.close();
+        	Print("\nStatistics Saved.");
+        }
+        else
+        {}
+
+        Print("Thanks for playing! (Code 03)\n");
 
         return;
     } // END statistics
@@ -687,20 +806,35 @@ public class alien
         return a1.AngerLevel;
     } // END getAngerLevel
 
-    // a method which will allow me to print messages faster
+    // a method which will allow me to print string messages faster
     public static void Print(String p)
-    {
-        System.out.println(p);
-        return;
-    } // END Print
+	{
+		System.out.println(p);
+		return;
+	} // END Print
 
-    // a method which will allow me to get a string input from the user faster
-    public static String InputString(String s)
-    {
-        Scanner scanner = new Scanner(System.in);
-        Print(s);
-        return scanner.nextLine();
-    } // END Input String
+	// a method which will allow me to print numbers faster
+	public static void PrintInt(int pi)
+	{
+		System.out.println(pi);
+		return;
+	} // END Print
+
+	// a method which will allow me to get a string input from the user faster
+	public static String InputString(String s)
+	{
+		Scanner scanner = new Scanner(System.in);
+		Print(s);
+		return scanner.nextLine();
+	} // END Input String
+
+	// a method which will allow me to get a integer input from the user faster
+	public static int InputInt (String message)
+	{
+		Scanner scanner = new Scanner(System.in);
+		Print(message);
+		return Integer.parseInt(scanner.nextLine());
+	} // END Input Integer
 
 } // END class alien
 
