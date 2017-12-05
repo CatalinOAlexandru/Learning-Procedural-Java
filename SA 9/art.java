@@ -31,7 +31,7 @@ class art
 	{
 
 		ArtCollection artCollection = new ArtCollection();
-		artCollection.paintings= paintings;  //  paintings ??? bruhh. paintings does not exists
+		artCollection.paintings= paintings; 
 		
 		artCollection.paintings[0] = newMethod("Girl With Chrysanthemums", "Olga Boznanska", 1894, 3,paintings[0]);
 		artCollection.paintings[1] = newMethod("Woman With a Pearl Necklace in a Loge","Mary Cassat",1979,1, paintings[1] );

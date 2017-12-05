@@ -63,31 +63,46 @@ public class alien
     public static void bubblesort(AlienData[][] RoundsCount, int alienCount, int numberRounds)
     {
     	boolean sorted = false;
-      int f = 0;
-      int k = 0;
+     	int f = 0;
+     	int k = 0;
 
-      // int c is the current alien
+    	// int c is the current alien
     	// int jj is the current round which contains all the data of the c alien
       
     	while(!sorted)
     	{
     		sorted = true;
-        f = 0;
-        k = 0;
-    		while(f < alienCount && k < numberRounds)
+      	f = 0; // Alien number
+        k = 0; // Round number
+
+		Print("The Aliens with the highest Anger level in Round " + (k+1) + " are:");
+
+    		while(f+1 < alienCount && k+1 < numberRounds)
     		{
-    			if(getAngerLevel(RoundsCount[f][k]) > getAngerLevel(RoundsCount[f][k+1])) // swap them
+    			// print
+    			if(getAngerLevel(RoundsCount[f][k]) > getAngerLevel(RoundsCount[f+1][k])) // swap them
     			{
-    				int tmp = getAngerLevel(RoundsCount[f][k+1]);
-    				RoundsCount[f][k+1] = setAngerLevel(RoundsCount[f][k+1], getAngerLevel(RoundsCount[f][k]));
-    				RoundsCount[f][k] = setAngerLevel(RoundsCount[f][k], tmp);
+    				// print
+    				int tmp = getAngerLevel(RoundsCount[f+1][k]);
+
+    				//RoundsCount[f+1][k] = setAngerLevel(RoundsCount[f+1][k], getAngerLevel(RoundsCount[f][k])); // original line
+    				setAngerLevel(RoundsCount[f+1][k], getAngerLevel(RoundsCount[f][k])); // new line for test
+
+    				//RoundsCount[f][k] = setAngerLevel(RoundsCount[f][k], tmp); // original line
+    				setAngerLevel(RoundsCount[f][k], tmp); //new line for test
+
     				sorted = false; // array wasn't sorted
     			} // end if statement
-          f = f +1;
-          k = k +1;
-    		} // end for loop
 
-    		Print("The highest Anger level in round "+ k +" was: " + getAngerLevel(RoundsCount[f][k-1]));
+                f = f +1;
+                k = k +1;
+
+                for(int rc = 1; rc <= numberRounds; rc++)
+    			{
+    				Print("Alien number " + rc + " with anger level " + getAngerLevel(RoundsCount[rc][(k-1)]));
+    			}
+
+    		} // end for loop
 
     	} // end while loop
     	return;
@@ -123,7 +138,7 @@ public class alien
         // This will loop the rounds and will allow the player to take care of the alien
         for(int jj = 1; jj <= r; jj++) // START 2nd for loop
         {
-            Print("\nROUND NUMBER: " + (jj) + "\n");
+            Print("\nROUND NUMBER: " + (jj) + " for Alien " + n +"\n");
             feed(a1[c]);
             water(a1[c]);
             sing(a1[c]);
