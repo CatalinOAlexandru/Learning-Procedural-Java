@@ -58,7 +58,7 @@ public class alien
         int numberRounds = rounds(a1);
         AlienData[][] RoundsCount = ressurectionAL(a1, numberRounds, AngerLVL, alienCount);
       
-        //bubblesort(RoundsCount, alienCount, numberRounds);
+        bubblesort(RoundsCount, alienCount, numberRounds);
       
         statistics(a1, numberRounds, alienCount, RoundsCount);
 
@@ -71,7 +71,7 @@ public class alien
     {
     	String ans  = "";
     	String ans2 = "";
-    	Print("Do you want to START a new game or READ previous game Statistics?");
+    	Print("\nDo you want to START a new game or READ previous game Statistics?");
     	
     	while(true)
     	{
@@ -122,73 +122,44 @@ public class alien
     // This method will sort the aliens and the rounds inside the RoundsCount array
     public static void bubblesort(AlienData[][] RoundsCount, int alienCount, int numberRounds)
     {
-		System.out.println(RoundsCount[0][0]); // Alien 1 Round 1
-		System.out.println(RoundsCount[0][1]); // Alien 1 Round 2
-
-		System.out.println(RoundsCount[1][0]); // Alien 2 Round 1
-    	System.out.println(RoundsCount[1][1]); // Alien 2 Round 2
-
-    	Print("");
-/*
-
-    	boolean sorted=false;
-    	while(!sorted)
+    	if(alienCount>1)
     	{
-    		sorted = true; //array potentially sorted
-    		for(int i=0; i<RoundsCount.length-1; i++)
-    		{
-    			if(RoundsCount[i] > RoundsCount[i+1]) //swap them
-    			{
-    				int tmp = RoundsCount[i+1];
-    				RoundsCount[i+1] = RoundsCount[i];
-    				RoundsCount[i] = tmp;
-    				sorted = false; // array wasn't sorted
-    			}
-    		}
-    	}
-*/
-    	System.out.println(RoundsCount[0][0]); // Alien 1 Round 1
-		System.out.println(RoundsCount[0][1]); // Alien 1 Round 2
+			Print("\nSorting Algorithm\n");
+	    	for(int j=1; j<numberRounds+1; j++)
+	    	{
+	    		AlienData[] sortedVector = new AlienData[alienCount];
+	    	
+		    	// Copy the initial order of the aliens into this vector
+		    	for(int i=1; i<alienCount; i++)
+		    	{
+		    		sortedVector[i] = RoundsCount[i][j];
+		    	}
 
-		System.out.println(RoundsCount[1][0]); // Alien 2 Round 1
-    	System.out.println(RoundsCount[1][1]); // Alien 2 Round 2
-
-    	Print("");
-
-/* ------------------------------------------- OLD ---------------------------------------------------------------
-    	boolean sorted = false;
-     	int f = 0;
-     	int k = 0;
-    	// int c is the current alien
-    	// int jj is the current round which contains all the data of the c alien
-    	while(!sorted)
-    	{
-    		sorted = true;
-      		f = 0; // Alien number
-        	k = 0; // Round number
-		Print("The Aliens with the highest Anger level in Round " + (k+1) + " are:");
-    		while(f+1 < alienCount && k+1 < numberRounds)
-    		{
-    			// print
-    			if(getAngerLevel(RoundsCount[f][k]) > getAngerLevel(RoundsCount[f+1][k])) // swap them
-    			{
-    				// print
-    				int tmp = getAngerLevel(RoundsCount[f+1][k]);
-    				//RoundsCount[f+1][k] = setAngerLevel(RoundsCount[f+1][k], getAngerLevel(RoundsCount[f][k])); // original line
-    				setAngerLevel(RoundsCount[f+1][k], getAngerLevel(RoundsCount[f][k])); // new line for test
-    				//RoundsCount[f][k] = setAngerLevel(RoundsCount[f][k], tmp); // original line
-    				setAngerLevel(RoundsCount[f][k], tmp); //new line for test
-    				sorted = false; // array wasn't sorted
-    			} // end if statement
-                f = f +1;
-                k = k +1;
-                for(int rc = 1; rc <= numberRounds; rc++)
-    			{
-    				Print("Alien number " + rc + " with anger level " + getAngerLevel(RoundsCount[rc][(k-1)]));
-    			}
-   			} // end for loop
-    	} // end while loop
----------------------------------------------- END OLD -------------------------------------------------------------- */
+		    	// Here we actually sort the vector
+		    	for(int i1=1; i1<alienCount-1; i1++)
+		    	{
+		    		for(int i2=i1+1; i2<alienCount; i2++)
+		    		{
+		    			if(getAngerLevel(sortedVector[i1]) > getAngerLevel(sortedVector[i2]))
+		    			{
+		    				AlienData aux = sortedVector[i1];
+		    				sortedVector[i1] = sortedVector[i2];
+		    				sortedVector[i2] = aux;
+		    			}
+		    		}
+	          
+		    	}
+	        	
+		    	Print("Round " + j + " - The Happiest Alien is:");
+		    	for(int i=1; i<alienCount; i++)
+		    	{
+		    		System.out.print(getName(sortedVector[i])+" had an Anger Level of ");
+		    		System.out.println(getAngerLevel(sortedVector[i])+".\n");
+		    	}
+	    	}
+	    }
+	    else{}
+	    	
     	return;
     } // end bubblesort
 

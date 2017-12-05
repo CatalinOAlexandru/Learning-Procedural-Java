@@ -1,0 +1,24 @@
+Alien Name: Goku --- Round Number: 1
+Hunger level was: 4
+Thirst level was: 6
+Irritability level was: 9
+Anger level was: 3
+
+Alien Name: Goku --- Round Number: 2
+Hunger level was: 10
+Thirst level was: 10
+Irritability level was: 10
+Anger level was: 4
+
+Alien Name: Varus --- Round Number: 1
+Hunger level was: 1
+Thirst level was: 7
+Irritability level was: 1
+Anger level was: 1
+
+Alien Name: Varus --- Round Number: 2
+Hunger level was: 1
+Thirst level was: 9
+Irritability level was: 1
+Anger level was: 2
+

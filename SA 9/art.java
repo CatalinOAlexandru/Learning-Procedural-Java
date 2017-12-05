@@ -29,39 +29,33 @@ class art
 	// this method will ask the user in which room he or she currently is and will print facts about a popular painting
 	public static void whichroom(Painting[] paintings)
 	{
-
-		ArtCollection artCollection = new ArtCollection();
+		PaintingCollection artCollection = new PaintingCollection();
 		artCollection.paintings= paintings; 
-		
 		artCollection.paintings[0] = newMethod("Girl With Chrysanthemums", "Olga Boznanska", 1894, 3,paintings[0]);
 		artCollection.paintings[1] = newMethod("Woman With a Pearl Necklace in a Loge","Mary Cassat",1979,1, paintings[1] );
 		artCollection.paintings[2] = newMethod("Self-Portrait with Baret and Turned-up Collar","Rembrandt",1659,2, paintings[2]);
 		artCollection.paintings[3] = newMethod("Impression , Sunrise", "Claude Monet", 1872, 4, paintings[3]);
 
-		
-		int userinp = 0;
-		int finaluserinp = 0;
+		int RoomNumber = 0;
+		int finalRoomNumber = 0;
 
 		while(true)
 		{
-			userinp = Integer.parseInt(InputString("\nWhat room are you in?"));
-
-			if (userinp<=0 || userinp>4)
+			RoomNumber = Integer.parseInt(InputString("\nWhat room are you in?"));
+			if (RoomNumber<=0 || RoomNumber>4)
 			{
 				Print("Sorry, but that is a wrong room.\n");
 				break;
 			}
 			else 
 			{
-				finaluserinp = userinp - 1;
-				Print("The painting in gallery " + userinp + " is by " + getArtist(artCollection.paintings[finaluserinp]) + ". It was painted in " + getYear(artCollection.paintings[finaluserinp]) + " and is called " + getName(artCollection.paintings[finaluserinp]) + ".\n");
+				finalRoomNumber = RoomNumber - 1;
+				Print("The painting in gallery " + RoomNumber + " is by " + getArtist(artCollection.paintings[finalRoomNumber]) + ". It was painted in " + getYear(artCollection.paintings[finalRoomNumber]) + " and is called " + getName(artCollection.paintings[finalRoomNumber]) + ".\n");
 			}
 		}
 		return;
 	}
 
-
-//Getter Methods 
 	public static String getName(Painting p)
 	{
 		return p.name;
@@ -77,9 +71,7 @@ class art
 	public static int getroomnumber(Painting p)
 	{
 		return p.roomnumber;
-	}
-	
-//Setter Methods
+	}	
 	public static Painting setName(Painting p, String name)
 	{
 		p.name = name;
@@ -108,7 +100,6 @@ class art
 		p = setRoomnumber(p,roomnumber);
 		return p;
 	}
-
 	// a method which will allow me to print messages faster
     public static void Print(String p)
 	{
@@ -126,7 +117,7 @@ class art
 
 } // END art
 
-class ArtCollection
+class PaintingCollection
 {
 	Painting[]paintings;
 	int roomnumber;
