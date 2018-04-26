@@ -24,3 +24,4 @@ inputInt.java
 StartTemplate.java
 MP/MP7/alien_notes.java
 *.pdf
+.vscode/settings.json
