@@ -1,3 +1,3 @@
 # Learning Java
 
-Tasks and project for Procedural Java from university.
+Tasks and projects for Procedural Java, learned during university.
